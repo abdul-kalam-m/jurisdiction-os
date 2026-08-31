@@ -1,0 +1,10 @@
+{
+  "timestamp_utc": "2026-08-31T05:25:36.135955+00:00",
+  "model": "gpt-4o-mini",
+  "prompt_version": "v2-explicit-meeting-date",
+  "n_gold_items": 30,
+  "action_precision": 0.7333,
+  "use_type_precision": 0.9667,
+  "gate": 0.9,
+  "passed": false
+}

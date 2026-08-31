@@ -1,0 +1,18 @@
+{
+  "timestamp_utc": "2026-08-31T06:00:00+00:00",
+  "model": "gpt-4o-mini",
+  "prompt_version": "v3-mechanical-vote-check",
+  "iteration_history": [
+    {"version": "v1-original", "action_precision": 0.733, "note": "initial gold-set eval, before any prompt iteration"},
+    {"version": "v2-explicit-meeting-date", "action_precision": 0.808, "note": "added explicit approval-extension/postponement rules -- fixed 4 of 8 original mismatches (extension-approved-not-heard, postponement-carried-not-heard patterns)"},
+    {"version": "v3-mechanical-vote-check", "action_precision": 0.846, "note": "added a worked few-shot example plus a mechanical 'find the literal vote sentence' instruction -- fixed 1 more mismatch, but 4 cases persist"}
+  ],
+  "n_gold_items": 30,
+  "n_evaluable_in_targeted_retest": 26,
+  "action_precision": 0.846,
+  "use_type_precision": 0.962,
+  "gate": 0.90,
+  "passed": false,
+  "remaining_failure_pattern": "4 cases (MONTCLAIR 2969, MONTCLAIR App. 2952, MONTCLAIR 2957, WESTFIELD ZBA 25-034) still get labeled 'approved' when the gold-verified truth is 'heard' -- all 4 share long, detailed, technical testimony (traffic studies, parking counts, expert witnesses, multi-exhibit hearings) with NO actual vote in the excerpt. Persisted across 3 rounds of prompt iteration including an explicit worked example and a mechanical instruction to find the literal vote sentence. Root cause not fully resolved: the model appears to associate extensive procedural engagement with a positive outcome regardless of instruction wording.",
+  "next_steps_not_taken": "A two-pass architecture (extract candidate items, then a separate targeted yes/no classifier pass asking specifically 'does this excerpt contain an explicit vote sentence for this case') was considered but not implemented -- flagged to the owner rather than built without their input, given the added pipeline complexity and cost this would introduce."
+}

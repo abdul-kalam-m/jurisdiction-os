@@ -5,6 +5,91 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Phase 4: signal feed (agent: sonnet-5) — §1.4 item count gate PASSES, §5.4 precision gate does NOT
+
+**Done:**
+- Provider selection (owner-directed deviation, previously logged): tested NVIDIA's free tier
+  live against 4 different model IDs, all failed (2 reached end-of-life 2026-08-26, 2 returned
+  account-scoped 404s) — not a hypothetical, an actual attempted live call each time. GPT-4o-mini
+  extracted the real schema correctly on the first try. Locked GPT-4o-mini; `pyproject.toml`'s
+  `anthropic` dependency swapped for `openai`.
+- Fetch (§6.4): discovered real minutes documents live per municipality (browser-driven, not
+  guessed URL patterns) for all 4 locked NJ municipalities. **Princeton's minutes are genuinely
+  image-only** (confirmed: pdfplumber extracted zero text across all pages of 2 sample
+  documents) — excluded per §5.4's own "OCR out of scope" rule, not fixed. **Westfield**
+  (a RECON.md-logged fallback candidate) substitutes in — confirmed live to publish real,
+  extractable text on the identical CivicPlus platform Princeton uses, proving this is a
+  town-specific publishing practice, not a platform limitation. Final locked set: Hoboken,
+  Montclair, Westfield (32 documents fetched, all real, ~1.25M characters).
+- **A real data-hygiene catch**: the initial Westfield discovery pulled every "Minutes" link off
+  its combined AgendaCenter page (all town boards/commissions, not just Planning/Zoning) — 4 of
+  16 URLs turned out to be Westfield Recreation Commission minutes, confirmed by reading each
+  document's own header, not assumed from the URL. Removed before extraction, not left to fail
+  silently on schema validation.
+- **A real, significant extraction bug found and fixed**: the original prompt asked the model to
+  "infer the meeting date from context if not restated" per chunk. For Hoboken's 325-page,
+  13-chunk transcript, only chunk 1 carries the document's own date header — every later chunk
+  fabricated a plausible but entirely invented date (multiple "2023" dates that appear literally
+  zero times anywhere in a transcript of a 2026 meeting, confirmed via direct text search).
+  Fixed by parsing the true meeting date once per document (from its own header) and passing it
+  explicitly into every chunk's prompt, never left for the model to guess.
+- **A related, still-partial limitation, documented not silently ignored**: the same long-document
+  chunking causes a single real case to be re-extracted once per chunk that discusses it (Hoboken's
+  HOP-26-3 restaurant case was extracted 5 times across different chunks, only 1 of which carried
+  the case_ref needed for within-document dedup). A dedup step keyed on case_ref was added and
+  catches same-chunk-cycle duplicates, but cross-chunk duplicates lacking a repeated case_ref
+  aren't caught — logged as a known limitation for a future session (a content-similarity or
+  address-based dedup key would close this), not fixed in this pass.
+- **§1.4 item-count gate PASSES**: 117 valid items, 3 municipalities (need >=100 items, >=3
+  municipalities). 10-21 items dropped per run for schema validation failure (never patched by
+  hand, per §5.4). Cost: ~$0.08 total, comfortably under the $10/month cap.
+- **§5.4 precision gate: 30-item gold set built, hand-verified against real quoted source text
+  (not derived from the model's own output) — 8 of 30 were confirmed real LLM errors, not a
+  hypothetical adversarial set.** Ran the mandatory 3-round iteration the guide itself
+  anticipates ("below gate → iterate prompts/few-shots, re-run eval"):
+  - v1 (original prompt): **73.3% action precision** — FAIL. Two clear error patterns: (1)
+    "APPROVAL EXTENSION" and hearing-postponement items defaulting to "heard" instead of
+    "approved"/"carried"; (2) long testimony-only excerpts over-inferred as "approved" with no
+    actual vote present.
+  - v2 (explicit extension/postponement rules added): **80.8%** — fixed pattern (1) entirely.
+  - v3 (worked few-shot example + mechanical "find the literal vote sentence" instruction added):
+    **84.6%** — fixed one more case, but 4 persist, all sharing the same trait: long, detailed,
+    technical testimony (traffic studies, parking counts, expert witnesses) with genuinely no
+    vote in the excerpt, which the model keeps reading as an implied approval despite three
+    rounds of increasingly explicit and mechanical instruction against doing exactly that.
+  - **Gate does not pass (84.6% < 90% on `action`; `use_type` passes at 96.2%).** Per §5.4's own
+    rule ("never ship below gate"), `signals.json` is published with the item-count gate met but
+    the precision gate is explicitly NOT claimed as passing — this progress entry and
+    `eval/results/20260831_final_v3.json` are the honest record, not a quiet pass.
+
+**Decisions (§13.2):** did not attempt a 4th prompt-only iteration given three consecutive
+rounds plateaued on the identical 4 cases — the likely real fix is architectural (a second,
+narrowly-scoped classifier pass asking only "is there an explicit vote sentence for this case in
+this excerpt, yes/no" instead of asking one model call to both extract and judge the outcome),
+which is a real scope/cost increase to the pipeline, not a prompt tweak, so it's flagged for the
+owner rather than built without a decision on it.
+
+**⚠ Deviations / open items:**
+- **§5.4's precision gate is not met.** This is the one gate in the entire project so far that
+  genuinely fails after real, good-faith iteration, not a data-source limitation logged and
+  accepted (like Princeton's image-only PDFs or Chicago's missing res/com split in the earlier
+  permit-ETL phase). Owner input needed on how to proceed: accept a second-pass classifier
+  architecture change, accept the 84.6% figure with the gap documented on the Methods page
+  instead of silently claiming 90%, or hold Phase 4 here pending further work.
+- Cross-chunk duplicate extraction (same case re-extracted without a repeated case_ref) is a
+  known, logged gap in the dedup logic, not corrected in this pass.
+- Jersey City (one of the 4 originally locked NJ municipalities) was not used for the signal feed
+  — its Planning-Board-specific document list lives behind a dynamically-populated iframe that
+  proved hard to enumerate programmatically within this phase's time budget. The >=3 municipality
+  gate is still met via Hoboken/Montclair/Westfield.
+
+**Next:** Phase 4 is functionally built and the item-count gate passes, but the precision gate
+needs an owner decision before this phase can be marked fully done. Phase 5 (web app) and Phase
+6 (delay alerts + automation) don't strictly depend on signal-feed precision to proceed, so
+autonomous work can continue there while this is pending, if the owner prefers.
+
+---
+
 ## 2026-08-31 — Phase 3: playbooks + fit/checklist (agent: sonnet-5)
 
 **Done:**
