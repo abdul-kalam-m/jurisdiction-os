@@ -5,6 +5,62 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Phase 7 (part 2): CI fully green on a real runner; honest §1.4 audit
+
+**Done:**
+- The `ci.yml` pushed in part 1 failed its very first real run -- `ruff`'s
+  `EXE001` caught that all 8 shebang'd pipeline scripts were non-executable
+  on the Linux runner (this session worked entirely on Windows, which
+  never records the executable bit, so it never got set). Fixed via
+  `git update-index --chmod=+x` on each file, not by removing the
+  shebangs. Confirmed on the *next* real push: **`ci.yml` is now fully
+  green** (both `pipeline` and `web` jobs) -- https://github.com/abdul-kalam-m/jurisdiction-os/actions/runs/33408404564.
+- README.md rewritten from its Phase-0-only stub to reflect the finished
+  product (live URL, feature summary, the eval-gated LLM pipeline framed
+  as the actual centerpiece with a link to the honest precision figure).
+
+**§1.4 success-criteria audit (honest, not self-graded green across the
+board):**
+
+| Criterion | Status |
+|---|---|
+| Scorecards, ≥6 jurisdictions, MANIFEST-traceable | ✅ Met -- 6/6 |
+| Fit checker + checklist, 2 asset types, all playbook jurisdictions cited | ✅ Met -- 5 NJ jurisdictions + NYC contrast, citation gate enforced at playbook compile time |
+| Signal feed ≥100 items, ≥3 municipalities | ✅ Met -- 114 items, 3 municipalities |
+| Signal feed precision ≥0.90 (action + use_type) | ❌ **Not met** -- use_type is 96.2%, but action is 84.6% (30-item hand-verified gold set). Owner-reviewed, documented rather than force-closed (Phase 4/5 entries, Methods & Data page). This is the one criterion in this table not expected to change without a materially different extraction architecture. |
+| Delay monitor backtested on historical data | ✅ Met -- 2,369 sampled points, full history, 30 jurisdiction x class combos |
+| Delay monitor running weekly via GitHub Actions | ⚠️ **Partially met** -- `refresh.yml`/`signals.yml` exist and were smoke-tested successfully via `workflow_dispatch` on real runners (Phase 6 entry), but the actual weekly *schedule* hasn't fired yet, and won't produce two-consecutive-green evidence until the owner adds the 3 repo secrets logged in Phase 6 and two real Mondays/Tuesdays pass. Time-gated past this session by construction. |
+| Landing + pricing present positioning, marked "demonstration" | ✅ Met -- verified via Playwright (`web/e2e/smoke.spec.ts`) |
+| Every page shows §5.6 disclaimer | ✅ Met -- verified via Playwright on all 7 pages |
+| Deployed on Cloudflare Pages | ✅ Met -- https://jurisdiction-os.pages.dev, live |
+| CI green | ✅ Met (as of this entry) -- `ci.yml` |
+
+Net: 8 of 10 sub-criteria fully met, 1 partially met (time-gated, not a
+build gap), 1 not met (the Phase 4 precision gate, an owner-reviewed,
+disclosed limitation). This table itself is the honest record -- not
+editing `OPERATING_GUIDE.md`'s own `- [ ]` boxes, since the guide's
+success criteria are canonical/locked (§13.3) and checking them off
+would misrepresent the two genuinely open items above.
+
+**§14 case-study assets** (saved to the Drive-mirrored portfolio folder,
+`7. JURISDICTION INTELLIGENCE OS\case-study-assets\`, per §8 -- not this
+repo): 5 real screenshots of the live production site (Playwright CLI
+against jurisdiction-os.pages.dev, not mockups) and a full `CASE_STUDY.md`
+draft (problem → data → method → eval → product framing → limitations,
+leading with the eval-gated pipeline per the guide's instruction). The
+≤90s walkthrough recording was **not produced** -- no screen-recording
+capability was available in this session (genuine tooling gap, logged in
+`case-study-assets/NOTES.md`, not silently skipped); flagged as an owner
+action.
+
+**Next:** Phase 7 is now substantively complete per the audit above.
+Remaining open items are the two genuinely time/owner-gated ones already
+logged (signal-feed precision, weekly-schedule secrets) plus the
+walkthrough recording -- none of which further pipeline/CI work can close
+from inside a session.
+
+---
+
 ## 2026-08-31 — Phase 7 (part 1): testing, CI, and real accessibility fixes (agent: sonnet-5)
 
 **Done:**
