@@ -5,6 +5,36 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Phase 5: web app (agent: sonnet-5) — §1.4 gate PASSES, deployed to production
+
+**Done:**
+- Built all 7 §7 pages: Landing, Scorecards (compare table + recharts per-jurisdiction detail,
+  tier badges), Fit Checker (playbook-driven, draft banner), Checklist (printable, `window.print()`),
+  Signals (filterable feed, `ACTION_COLORS` badges paired with text labels per WCAG 2.2 AA — never
+  color-only), Pricing (illustrative watermark), Methods & Data.
+- Methods & Data page fulfills the binding owner decision from the prior entry: discloses the
+  84.6% action-field precision figure, the 96.2% use_type figure, the 3-round iteration history
+  (73.3% → 80.8% → 84.6%), and the specific unresolved failure pattern (long technical testimony
+  over-inferred as "approved" absent an actual vote) — plus confidence-tier-A unreachability,
+  Princeton's image-only-PDF exclusion, the 4-of-10 benchmark-city recon rejections, and the §5.6
+  disclaimer verbatim. The Signals page itself also carries an inline pointer to this disclosure.
+- `npm install`, `tsc -b` (clean), `vite build` (clean; one non-blocking chunk-size advisory on the
+  recharts bundle — noted, not fixed, out of scope for this phase).
+- Verified all 7 routes with real data via the Browser pane dev server (no console errors, no
+  network failures) and again against the deployed production URL directly (deep-link `/methods`
+  and `/signals` both return **200** from Cloudflare Pages' SPA routing, not a 404 shell — data
+  fetches confirmed 200 too).
+- Spot-checked light mode + mobile (375×812) — nav wraps correctly, no horizontal overflow.
+- Deployed to Cloudflare Pages: `jurisdiction-os` project created, `wrangler pages deploy dist`
+  → https://jurisdiction-os.pages.dev (live).
+
+**Decisions (§13.2):** none new this phase — executing the prior entry's binding requirement.
+
+**Next:** Phase 6 — delay alerts (M5 rule + backtest) + GitHub Actions automation
+(`refresh.yml`, `signals.yml`).
+
+---
+
 ## 2026-08-31 — Owner decision: signal-feed precision gap documented, not force-closed
 
 Owner reviewed the Phase 4 precision-gate shortfall (84.6% action precision vs. the 90% gate,

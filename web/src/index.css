@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* "Bloomberg Terminal for local permitting risk" (§1.1) -- a data-dense,
+   professional B2B SaaS aesthetic, deliberately distinct from both sibling
+   portfolio projects (teal/flood-risk, amber/planning): deep slate/indigo
+   with a cyan accent, monospace for data-heavy figures. */
+@theme {
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+  --color-brand-950: #1e1b4b;
+
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0891b2;
+
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid #4338ca;
+  outline-offset: 2px;
+}
