@@ -48,6 +48,20 @@ Done / Decisions / ⚠ Deviations / Next.
   (https://jurisdiction-os.pages.dev) via `wrangler pages deploy`, same as
   Phase 5 -- the *live site* is current even though the *scheduled*
   pipeline isn't active yet (see Deviations).
+- **Smoke-tested both workflows for real via `gh workflow run` (`workflow_dispatch`)
+  on actual GitHub Actions runners, not just YAML-syntax-checked locally:**
+  `refresh.yml` ran end-to-end and **succeeded** (run 33404779355, 3m50s) --
+  checkout, `uv sync`, live permit ETL against all 6 Socrata endpoints,
+  scorecards, delay-alert backtest, and a real `git commit` + `push` that
+  landed on `origin/main` (`5c5d7a3`, a legitimate small diff -- new permits
+  since the last local pull, not a no-op). The Cloudflare-deploy gate
+  correctly detected the missing secrets and logged an `::notice::` instead
+  of failing the run. `signals.yml` ran and **failed** (run 33404804660,
+  2m53s) at exactly the expected step and for exactly the expected reason
+  -- `41_extract_signals.py`'s own `FATAL: OPENAI_API_KEY not set` check,
+  confirmed from the raw job log, nothing else. Pulled the automated
+  commit locally, rebuilt, and redeployed production so the live site
+  reflects this CI-verified data.
 
 **⚠ Deviations (owner action required, logged rather than done silently):**
 - **Owner-only alert email is a documented stub, not live.** `send_alert_email()`
@@ -80,11 +94,11 @@ Done / Decisions / ⚠ Deviations / Next.
   here rather than the phase being marked complete when it isn't -- same
   honesty discipline as the Phase 4 precision-gate entry.
 
-**Next:** owner adds the three repo secrets above (or confirms a
-`workflow_dispatch` smoke-test run is sufficient evidence for now); once
-added, watch the next two real Monday/Tuesday runs. Phase 7 (hardening +
-launch) can proceed in parallel -- it doesn't depend on the scheduled runs
-having fired yet.
+**Next:** the workflow *mechanics* are now proven correct on real runners
+(above) -- the only remaining gap to close Phase 6's exit gate is (1) the
+owner adding the three repo secrets and (2) two real Monday/Tuesday
+schedule firings after that. Phase 7 (hardening + launch) can proceed in
+parallel -- it doesn't depend on the scheduled runs having fired yet.
 
 ---
 
