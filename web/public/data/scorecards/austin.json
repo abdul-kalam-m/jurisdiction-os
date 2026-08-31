@@ -1,6 +1,6 @@
 {
   "city": "AUSTIN",
-  "total_permits_in_window": 47812,
+  "total_permits_in_window": 47813,
   "overall_exclusion_rate": 0.0831,
   "data_quality_flag": false,
   "classes": {
@@ -91,18 +91,18 @@
     },
     "site/civil": {
       "coverage": "ok",
-      "n_permits": 60,
-      "median_days": 61.5,
-      "p25_days": 29,
-      "p75_days": 292,
+      "n_permits": 61,
+      "median_days": 56,
+      "p25_days": 28,
+      "p75_days": 264,
       "annual_volume": {
         "2022": 6,
         "2023": 23,
         "2024": 14,
         "2025": 12,
-        "2026": 5
+        "2026": 6
       },
-      "trend_slope_per_year": -1.3,
+      "trend_slope_per_year": -1.1,
       "n_years": 5,
       "confidence_tier": "C"
     }

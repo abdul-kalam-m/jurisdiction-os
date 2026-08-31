@@ -1,6 +1,6 @@
 {
   "city": "CHICAGO",
-  "total_permits_in_window": 132472,
+  "total_permits_in_window": 132487,
   "overall_exclusion_rate": 0.3624,
   "data_quality_flag": true,
   "classes": {
@@ -29,8 +29,8 @@
     },
     "alteration-minor": {
       "coverage": "ok",
-      "n_permits": 48496,
-      "median_days": 7.0,
+      "n_permits": 48509,
+      "median_days": 7,
       "p25_days": 2,
       "p75_days": 15,
       "annual_volume": {
@@ -38,9 +38,9 @@
         "2023": 8410,
         "2024": 13505,
         "2025": 14661,
-        "2026": 9560
+        "2026": 9573
       },
-      "trend_slope_per_year": 2065.1,
+      "trend_slope_per_year": 2067.7,
       "n_years": 5,
       "confidence_tier": "B"
     },
