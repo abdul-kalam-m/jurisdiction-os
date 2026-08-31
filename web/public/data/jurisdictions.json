@@ -1,0 +1,89 @@
+{
+  "note": "Confidence tier A (status-history-backed) is not reachable by this pipeline's current data sources -- every jurisdiction caps at B or C. See PROGRESS.md Phase 2.",
+  "jurisdictions": {
+    "nyc": {
+      "city": "NYC",
+      "total_permits_in_window": 649150,
+      "overall_exclusion_rate": 0.1012,
+      "data_quality_flag": false,
+      "best_confidence_tier": "B",
+      "classes_with_data": [
+        "alteration-major",
+        "new-construction-com",
+        "new-construction-res"
+      ]
+    },
+    "chicago": {
+      "city": "CHICAGO",
+      "total_permits_in_window": 132472,
+      "overall_exclusion_rate": 0.3624,
+      "data_quality_flag": true,
+      "best_confidence_tier": "B",
+      "classes_with_data": [
+        "alteration-major",
+        "alteration-minor",
+        "demolition",
+        "site/civil"
+      ]
+    },
+    "austin": {
+      "city": "AUSTIN",
+      "total_permits_in_window": 47812,
+      "overall_exclusion_rate": 0.0831,
+      "data_quality_flag": false,
+      "best_confidence_tier": "B",
+      "classes_with_data": [
+        "alteration-major",
+        "alteration-minor",
+        "demolition",
+        "new-construction-com",
+        "new-construction-res",
+        "site/civil"
+      ]
+    },
+    "san-francisco": {
+      "city": "SAN FRANCISCO",
+      "total_permits_in_window": 95387,
+      "overall_exclusion_rate": 0.5503,
+      "data_quality_flag": true,
+      "best_confidence_tier": "B",
+      "classes_with_data": [
+        "alteration-major",
+        "alteration-minor",
+        "demolition",
+        "new-construction-com",
+        "new-construction-res",
+        "site/civil"
+      ]
+    },
+    "seattle": {
+      "city": "SEATTLE",
+      "total_permits_in_window": 24290,
+      "overall_exclusion_rate": 0.1429,
+      "data_quality_flag": false,
+      "best_confidence_tier": "B",
+      "classes_with_data": [
+        "alteration-major",
+        "alteration-minor",
+        "demolition",
+        "new-construction-com",
+        "new-construction-res"
+      ]
+    },
+    "los-angeles": {
+      "city": "LOS ANGELES",
+      "total_permits_in_window": 253707,
+      "overall_exclusion_rate": 0.4897,
+      "data_quality_flag": true,
+      "best_confidence_tier": "B",
+      "classes_with_data": [
+        "alteration-major",
+        "alteration-minor",
+        "demolition",
+        "new-construction-com",
+        "new-construction-res",
+        "site/civil"
+      ]
+    }
+  }
+}

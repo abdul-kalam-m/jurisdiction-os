@@ -1,0 +1,82 @@
+{
+  "city": "CHICAGO",
+  "total_permits_in_window": 132472,
+  "overall_exclusion_rate": 0.3624,
+  "data_quality_flag": true,
+  "classes": {
+    "new-construction-res": {
+      "coverage": "no_data"
+    },
+    "new-construction-com": {
+      "coverage": "no_data"
+    },
+    "alteration-major": {
+      "coverage": "ok",
+      "n_permits": 21330,
+      "median_days": 51.0,
+      "p25_days": 18,
+      "p75_days": 111,
+      "annual_volume": {
+        "2022": 1408,
+        "2023": 4670,
+        "2024": 6164,
+        "2025": 5488,
+        "2026": 3600
+      },
+      "trend_slope_per_year": 520.2,
+      "n_years": 5,
+      "confidence_tier": "B"
+    },
+    "alteration-minor": {
+      "coverage": "ok",
+      "n_permits": 48496,
+      "median_days": 7.0,
+      "p25_days": 2,
+      "p75_days": 15,
+      "annual_volume": {
+        "2022": 2360,
+        "2023": 8410,
+        "2024": 13505,
+        "2025": 14661,
+        "2026": 9560
+      },
+      "trend_slope_per_year": 2065.1,
+      "n_years": 5,
+      "confidence_tier": "B"
+    },
+    "demolition": {
+      "coverage": "ok",
+      "n_permits": 520,
+      "median_days": 70.5,
+      "p25_days": 47,
+      "p75_days": 113,
+      "annual_volume": {
+        "2022": 45,
+        "2023": 62,
+        "2024": 63,
+        "2025": 30,
+        "2026": 320
+      },
+      "trend_slope_per_year": 51.8,
+      "n_years": 5,
+      "confidence_tier": "B"
+    },
+    "site/civil": {
+      "coverage": "ok",
+      "n_permits": 9273,
+      "median_days": 28,
+      "p25_days": 13,
+      "p75_days": 64,
+      "annual_volume": {
+        "2022": 802,
+        "2023": 2280,
+        "2024": 2413,
+        "2025": 2453,
+        "2026": 1325
+      },
+      "trend_slope_per_year": 121.9,
+      "n_years": 5,
+      "confidence_tier": "B"
+    }
+  }
+}

@@ -5,6 +5,47 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Phase 2: scorecards (agent: sonnet-5)
+
+**Done:**
+- `20_scorecards.py`: per city x shared-class, computes median/p25/p75 cycle-time days, annual
+  volume, 3-yr trend slope (least-squares over available years), and confidence tier. Writes
+  the §6.3 artifact contract: `jurisdictions.json` (registry) + `scorecards/{slug}.json` per city.
+- **Gate passed: 6/6 jurisdictions have at least one scored class** (§1.4's own floor). Coverage
+  varies by city per Phase 1's already-documented data gaps: Austin and SF have all 6 classes,
+  LA has 6, Seattle 5/6, Chicago 4/6, NYC only 3/6 (its ~3.8% job-type-classification coverage
+  means several classes never accumulate enough matched records to report).
+- **Spot-checked 3 hand-computed cases against the script's own output, all exact matches**:
+  Austin new-construction-res (n=12,674, median=68.0 days), Seattle demolition (n=1,547,
+  median=91 days), San Francisco alteration-major (n=5,232, median=250.0 days) — computed
+  independently via raw SQL + Python's own `sorted()`/median arithmetic, not re-running the
+  same code path, to catch a shared bug the script's own logic might reproduce identically
+  across cities.
+- Data-quality flag (§5.1: "if >15% exclusion, flag data quality on the scorecard") correctly
+  fires for Chicago, San Francisco, and Los Angeles — matching Phase 1's own documented findings
+  (SF's OTC-permit mix, LA's missing-date gap, Chicago's high express/easy-permit share).
+
+**Decisions (§13.2):** **Confidence tier A is not reachable by this pipeline at all** — §5.1
+defines tier A as needing "status history" (per-permit review-stage timestamps) on top of the
+volume/years thresholds, and none of Phase 1's 6 sources provide that in a normalized
+cross-city form. Every jurisdiction x class caps at tier B (≥3yrs + ≥50/yr) or C. Disclosed
+directly in `jurisdictions.json`'s own top-level note, not silently omitted — a real, permanent
+scope boundary of this pipeline, not a bug to fix in a later phase.
+
+**⚠ Deviations / open items:** the 4-year fetch window's first (2022) and last (2026) calendar
+years are both partial (cutoff mid-year, and 2026 only through today), so `annual_volume` and
+`trend_slope_per_year` treat two non-comparable partial years the same as three full ones —
+noted here for Phase 5's web app to label partial years explicitly rather than a pipeline fix,
+since the underlying per-permit dates themselves are correct either way.
+
+**Next:** Phase 3 — playbooks + fit/checklist (2 asset types x NJ deep-dive set + one benchmark
+city, per §11). This phase is qualitatively different from Phases 0-2: it needs real research
+into each jurisdiction's actual zoning/permitting rules with an official citation on every
+checklist item (§5.3: "citation: URL to an official source -- required field, build fails
+without it"), not just data-pipeline work.
+
+---
+
 ## 2026-08-31 — Phase 1: permit ETL, all 6 cities (agent: sonnet-5)
 
 **Done:**
