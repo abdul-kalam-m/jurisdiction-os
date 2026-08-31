@@ -5,6 +5,71 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Phase 1: permit ETL, all 6 cities (agent: sonnet-5)
+
+**Done:**
+- `crosswalks.py`: per-city permit-type -> shared-class mapping, built from real sampled
+  permit-type value distributions pulled live from each dataset (not a generic national
+  taxonomy) — every mapping decision cites the actual observed counts.
+- `10_permit_etl.py`: fetches the last 4 years, classifies, computes filing->issuance duration,
+  applies the §5.1 exclusion rule, writes to a DuckDB working store (`data/jurisdiction_os.duckdb`).
+- **All 6 cities ingested, ~1.2M permit rows total:**
+
+  | City | Rows | Excluded | Unmapped | Note |
+  |---|---|---|---|---|
+  | NYC | 649,150 | 10.1% | 96.2% | see classification-gap note below |
+  | Chicago | 132,472 | 36.2% | 5.2% | no res/com split available (RECON.md) |
+  | Austin | 47,812 | 8.3% | 0.6% | cleanest of the 6 |
+  | San Francisco | 95,387 | 55.0% | 0.4% | see OTC-permit note below |
+  | Seattle | 24,290 | 14.3% | 9.0% | |
+  | Los Angeles | 253,707 | 49.0% | 0.0% | see missing-date note below |
+
+- **Three real, investigated findings, not glossed over:**
+  1. **San Francisco's 55% exclusion is correct behavior, not a bug**: 98.6% of its exclusions
+     are §5.1's own "non-positive duration" rule firing on genuine same-day "over-the-counter"
+     permits (`filed_date == issued_date`) — confirmed by inspecting real excluded rows before
+     assuming anything was wrong. A 0-day duration is definitionally uninteresting for
+     cycle-time benchmarking, so excluding it is the guide's own intended behavior; SF's permit
+     mix is just unusually OTC-heavy. Flagged for the scorecard's own data-quality note (§5.1: "if
+     > 15% [exclusion], flag data quality") rather than "fixed."
+  2. **Los Angeles's 49% exclusion is a real, dataset-wide data-completeness gap**: confirmed
+     directly against the live API (not just this ETL's own filtered subset) that 161,897 of
+     LA's full 408,174-row dataset (39.7%) have a NULL `submitted_date` — LA itself doesn't
+     always publish a filing date, not a fetch defect.
+  3. **NYC's job-type classification only covers ~3.8% of records** (24,903 of 649,150): the
+     join to the companion "Job Application Filings" dataset needed for job_type genuinely
+     doesn't cover most permits — spot-checked several unmatched job_filing_numbers directly
+     against the filings API and got zero results, ruling out a formatting bug. Most plausibly,
+     the filings dataset only tracks jobs requiring formal plan-review, not self-certified ones.
+     Documented as a real, honest limitation (same category as Chicago's res/com gap) rather
+     than papered over with an unreliable proxy — NYC's per-class scorecard breakdown will only
+     be as complete as this 3.8%; its aggregate cycle-time distribution is unaffected.
+- **Two real bugs caught and fixed during this phase, not a clean run:**
+  1. NYC returned 0 rows on the first attempt: `BENCHMARK_CITIES["NYC"]["datasets"]` listed the
+     out-of-window legacy dataset (2007-2020) first, and the ETL script took `datasets[0]`
+     positionally — silently fetching the wrong dataset. Fixed by removing the dead legacy
+     entry rather than trusting index order (see `jos_lib.py`'s own note for the full story).
+  2. `--force` unconditionally deleted the *entire* DuckDB file regardless of `--city`, so a
+     `--city NYC --force` re-run to fix bug #1 silently wiped out the other 5 already-loaded
+     cities' data along with it — caught by a post-hoc sanity query ("why does the DB only have
+     NYC now") rather than assumed fine because NYC's own numbers looked right. Fixed so
+     `--force` only ever re-fetches the city/cities actually named on that run.
+- `MANIFEST.json`: one entry per city with source URL, retrieval timestamp, row count.
+
+**Decisions (§13.2):** ambiguous permit-type mappings default to the *more conservative* class
+where no severity signal exists (e.g. NYC DOB NOW's undifferentiated "Alteration" and Chicago's
+"RENOVATION/ALTERATION" both default to alteration-major, not alteration-minor) — a documented
+approximation, not a precision claim, logged in `crosswalks.py` itself at the point of the choice.
+
+**⚠ Deviations / open items:** NYC's per-class breakdown coverage (~3.8%) and Chicago's missing
+res/com split are real, permanent limitations of these cities' own published data, not scoped to
+be fixed later — carried forward into Phase 2's scorecards as documented confidence/coverage
+caveats, not chased further.
+
+**Next:** Phase 2 — scorecards (§5.1 metrics + confidence tiers per city × class × year).
+
+---
+
 ## 2026-08-31 — Owner deviation: LLM provider for §5.4 (logged, not yet built)
 
 **⚠ Deviation from §6.2's locked stack (owner-directed, not an agent decision):** the guide

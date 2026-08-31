@@ -5,6 +5,10 @@
 # enough to ship directly with the static site, no R2/tiles needed.
 data/raw/
 data/_http_cache/
+# DuckDB working store -- regenerable via pipeline/10_permit_etl.py etc.,
+# same "processed data isn't committed" convention as the owner's other
+# projects. data/MANIFEST.json (small, provenance-only) IS committed.
+data/*.duckdb
 
 # Never committed, ever (§6.4, §13.4): the owner-provided Anthropic API key.
 .env

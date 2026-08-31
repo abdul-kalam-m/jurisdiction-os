@@ -121,43 +121,90 @@ def manifest_add(name: str, source_url: str, local_path: Path | None,
 # one false negative during recon, caught before locking this set).
 BENCHMARK_CITIES: dict[str, dict] = {
     "NYC": {
+        # Legacy "DOB Permit Issuance" (ipu4-2q9a, 2007-2020, clean NB/A1/
+        # A2/A3/DM/SG job_type) is intentionally NOT in this active list --
+        # DOB NOW alone spans 2016-2026 (confirmed live), comfortably
+        # covering LOOKBACK_YEARS, so the legacy dataset buys nothing for
+        # this ETL window. NYC_LEGACY_JOB_TYPE stays defined in
+        # crosswalks.py as reference for a future session that wants
+        # pre-2016 history. This was a real bug once: an earlier version
+        # of this dict listed the legacy dataset first and 10_permit_etl.py
+        # took `datasets[0]` positionally, silently fetching the wrong
+        # (out-of-window) dataset and returning 0 rows for NYC -- fixed by
+        # removing the dead entry rather than trusting index order.
+        #
+        # **Real, documented classification gap**: the job_type join to the
+        # companion Job Application Filings dataset (w9ak-ipjd, below)
+        # only matches ~3.8% of DOB NOW permits (24,903 of 649,150 in the
+        # active window) -- confirmed genuinely absent, not a formatting
+        # bug (spot-checked several unmatched job_filing_numbers directly
+        # against the filings API, zero results, not a near-miss). The
+        # filings dataset most plausibly only tracks jobs requiring formal
+        # plan-review filing, not self-certified/simpler jobs that go
+        # straight to permit issuance -- meaning the 3.8% that DOES match
+        # likely skews toward NYC's more complex projects, not a random
+        # sample. Same category of gap as Chicago's missing res/com split
+        # (§13.2: documented, not force-fixed with an unreliable proxy) --
+        # NYC's per-class scorecard breakdown for 2022+ is only as complete
+        # as this ~3.8% match rate; the aggregate (all-permit-types)
+        # cycle-time distribution is unaffected since duration doesn't
+        # depend on classification.
         "platform": "socrata", "domain": "data.cityofnewyork.us",
         "datasets": [
-            {"id": "ipu4-2q9a", "name": "DOB Permit Issuance (legacy BIS, 2007-2020)",
-             "filed_field": "filing_date", "issued_field": "issuance_date", "type_field": "permit_type"},
             {"id": "rbx6-tga4", "name": "DOB NOW: Build - Approved Permits (current)",
-             "filed_field": "approved_date", "issued_field": "issued_date", "type_field": "work_type"},
+             "filed_field": "approved_date", "issued_field": "issued_date", "type_field": None,
+             "id_field": "job_filing_number", "extra_fields": [], "crosswalk": None,
+             "note": "job_type lives in the companion Job Application Filings dataset "
+                     "(w9ak-ipjd), joined by job_filing_number at ETL time, not present on this one"},
         ],
+    },
+    "NYC_FILINGS": {  # companion dataset for rbx6-tga4's job_type, joined at ETL time -- not a separate benchmark city
+        "platform": "socrata", "domain": "data.cityofnewyork.us",
+        "datasets": [{"id": "w9ak-ipjd", "name": "DOB NOW: Build - Job Application Filings",
+                      "filed_field": "filing_date", "issued_field": None, "type_field": "job_type",
+                      "id_field": "job_filing_number",
+                      "extra_fields": ["existing_dwelling_units", "proposed_dwelling_units"],
+                      "crosswalk": "NYC_DOBNOW_JOB_TYPE"}],
     },
     "CHICAGO": {
         "platform": "socrata", "domain": "data.cityofchicago.org",
         "datasets": [{"id": "ydr8-5enu", "name": "Building Permits",
                       "filed_field": "application_start_date", "issued_field": "issue_date",
-                      "type_field": "permit_type"}],
+                      "type_field": "permit_type", "id_field": "id", "extra_fields": [],
+                      "crosswalk": "CHICAGO_PERMIT_TYPE"}],
     },
     "AUSTIN": {
         "platform": "socrata", "domain": "data.austintexas.gov",
         "datasets": [{"id": "3syk-w9eu", "name": "Issued Construction Permits",
                       "filed_field": "applieddate", "issued_field": "issue_date",
-                      "type_field": "permit_type_desc"}],
+                      "type_field": "work_class", "id_field": "permit_number",
+                      "extra_fields": ["permit_type_desc", "permit_class_mapped"],
+                      "crosswalk": "AUSTIN_WORK_CLASS",
+                      "where_extra": "permit_type_desc = 'Building Permit'"}],
     },
     "SAN FRANCISCO": {
         "platform": "socrata", "domain": "data.sfgov.org",
         "datasets": [{"id": "i98e-djp9", "name": "Building Permits",
                       "filed_field": "filed_date", "issued_field": "issued_date",
-                      "type_field": "permit_type_definition"}],
+                      "type_field": "permit_type_definition", "id_field": "permit_number",
+                      "extra_fields": ["existing_use", "proposed_use"],
+                      "crosswalk": "SF_PERMIT_TYPE_DEFINITION"}],
     },
     "SEATTLE": {
         "platform": "socrata", "domain": "data.seattle.gov",
         "datasets": [{"id": "76t5-zqzr", "name": "Building Permits",
                       "filed_field": "applieddate", "issued_field": "issueddate",
-                      "type_field": "permitclassmapped"}],
+                      "type_field": "permittypedesc", "id_field": "permitnum",
+                      "extra_fields": ["permitclass"],
+                      "crosswalk": "SEATTLE_PERMIT_TYPE_DESC"}],
     },
     "LOS ANGELES": {
         "platform": "socrata", "domain": "data.lacity.org",
         "datasets": [{"id": "pi9x-tg5x", "name": "Building and Safety - Permits Issued 2020-Present",
                       "filed_field": "submitted_date", "issued_field": "issue_date",
-                      "type_field": "permit_type"}],
+                      "type_field": "permit_type", "id_field": "permit_nbr",
+                      "extra_fields": ["use_desc"],
+                      "crosswalk": "LA_PERMIT_TYPE"}],
     },
 }
 
