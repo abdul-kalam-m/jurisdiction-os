@@ -12,8 +12,9 @@ from __future__ import annotations
 import json
 import sys
 
-import jos_lib as lib
 import yaml
+
+import jos_lib as lib
 
 PLAYBOOKS_DIR = lib.PLAYBOOKS
 OUT_DIR = lib.WEB_DATA / "playbooks"

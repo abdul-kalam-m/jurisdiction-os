@@ -1,0 +1,51 @@
+{
+  "signals": {
+    "updated_utc": "2026-08-31T15:07:34.998892+00:00",
+    "model": "gpt-4o-mini",
+    "prompt_version": "v3-mechanical-vote-check",
+    "n_items": 114,
+    "n_municipalities": 3,
+    "n_validation_failures": 22,
+    "cost_usd": 0.0815
+  },
+  "scorecards": {
+    "updated_utc": "2026-08-31T15:08:54.776102+00:00",
+    "n_jurisdictions": 6,
+    "classes_tracked": [
+      "new-construction-res",
+      "new-construction-com",
+      "alteration-major",
+      "alteration-minor",
+      "demolition",
+      "site/civil"
+    ]
+  },
+  "delay_alerts": {
+    "updated_utc": "2026-08-31T15:08:58.910166+00:00",
+    "rule": {
+      "window_90d_days": 90,
+      "baseline_total_days": 365,
+      "ratio_threshold": 1.25,
+      "min_n_90d": 20,
+      "live_rule_cadence": "weekly (refresh.yml)",
+      "backtest_sample_step_days": 14
+    },
+    "total_backtest_points": 2369,
+    "currently_alerting_count": 4,
+    "artifact_size_kb": 244.1
+  },
+  "permit_etl": {
+    "updated_utc": "2026-08-31T15:08:25.749104+00:00",
+    "lookback_years": 4,
+    "cutoff_date": "2022-09-01T00:00:00",
+    "n_permits_total": 1202818,
+    "cities_refreshed_this_run": [
+      "NYC",
+      "CHICAGO",
+      "AUSTIN",
+      "SAN FRANCISCO",
+      "SEATTLE",
+      "LOS ANGELES"
+    ]
+  }
+}

@@ -26,6 +26,9 @@ __pycache__/
 node_modules/
 web/dist/
 web/*.tsbuildinfo
+web/test-results/
+web/playwright-report/
+web/blob-report/
 .DS_Store
 
 # wrangler CLI's local account/session cache

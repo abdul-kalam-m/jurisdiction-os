@@ -40,10 +40,10 @@ export default function ChecklistView() {
       </div>
 
       <div className="flex flex-wrap gap-3 print:hidden">
-        <select value={slug} onChange={(e) => setSlug(e.target.value)} className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-900">
+        <select aria-label="Select jurisdiction" value={slug} onChange={(e) => setSlug(e.target.value)} className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-900">
           {MUNI_SLUGS.map((s) => <option key={s} value={s}>{MUNI_LABELS[s]}</option>)}
         </select>
-        <select value={assetType} onChange={(e) => setAssetType(e.target.value as AssetType)} className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-900">
+        <select aria-label="Select asset type" value={assetType} onChange={(e) => setAssetType(e.target.value as AssetType)} className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-900">
           <option value="multifamily">Multifamily</option>
           <option value="small-commercial">Small Commercial</option>
         </select>
@@ -74,7 +74,7 @@ export default function ChecklistView() {
               </li>
             ))}
           </ol>
-          <p className="mt-6 text-xs text-slate-400 print:text-black">
+          <p className="mt-6 text-xs text-slate-600 dark:text-slate-400 print:text-black">
             Demonstration product &mdash; not a substitute for confirming requirements with {playbook.jurisdiction}.
           </p>
         </div>

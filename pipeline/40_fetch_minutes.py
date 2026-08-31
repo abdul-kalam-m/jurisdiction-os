@@ -24,8 +24,9 @@ from __future__ import annotations
 
 import sys
 
-import jos_lib as lib
 import pdfplumber
+
+import jos_lib as lib
 
 RAW_MINUTES_DIR = lib.RAW / "minutes"
 

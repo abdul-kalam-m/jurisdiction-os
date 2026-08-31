@@ -64,7 +64,7 @@ export default function ScorecardsView() {
                           ⚠ flagged
                         </span>
                       ) : (
-                        <span className="text-slate-400">&mdash;</span>
+                        <span className="text-slate-600 dark:text-slate-400">&mdash;</span>
                       )}
                     </td>
                     <td className="px-3 py-2">
@@ -103,7 +103,7 @@ export default function ScorecardsView() {
                   {m.confidence_tier && <TierBadge tier={m.confidence_tier} />}
                 </div>
                 {m.coverage === 'no_data' ? (
-                  <p className="mt-2 text-sm text-slate-400">No data for this class in this jurisdiction.</p>
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">No data for this class in this jurisdiction.</p>
                 ) : (
                   <>
                     <dl className="mt-2 grid grid-cols-3 gap-2 text-center font-mono text-sm">
@@ -179,7 +179,7 @@ function AlertPanel({ result }: { result?: import('../types').AlertClassResult }
           </LineChart>
         </ResponsiveContainer>
       </div>
-      <p className="mt-1 text-xs text-slate-400">
+      <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
         {n_alert_points} of {result.n_backtest_points} backtested points alerted. Dashed line = 1.25&times; threshold.
       </p>
     </div>

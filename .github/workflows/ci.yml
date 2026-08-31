@@ -1,0 +1,64 @@
+name: CI
+
+# §12: pipeline pytest + prompt-version drift check; web lint/typecheck/
+# build/Playwright-smoke/axe. Runs on every push and PR so a regression is
+# caught before it reaches main, not discovered at the next weekly refresh.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+      - name: Install pipeline dependencies (incl. dev)
+        working-directory: pipeline
+        run: uv sync --extra dev
+      - name: pytest (crosswalks, duration math, confidence tiers, delay rule)
+        working-directory: pipeline
+        run: uv run pytest -v
+      - name: ruff (pipeline lint)
+        working-directory: pipeline
+        run: uv run ruff check .
+      - name: §12 -- meta.json prompt_version must match eval/results/LATEST
+        working-directory: pipeline
+        run: uv run python check_prompt_version.py
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install web dependencies
+        working-directory: web
+        run: npm install
+      - name: Lint
+        working-directory: web
+        run: npm run lint
+      - name: Typecheck + build
+        working-directory: web
+        run: npm run build
+      - name: Install Playwright browsers
+        working-directory: web
+        run: npx playwright install --with-deps chromium
+      - name: 'Playwright smoke + axe (§12: each page renders, axe zero serious violations)'
+        working-directory: web
+        env:
+          CI: "true"
+        run: npx playwright test
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: web/playwright-report/
+          retention-days: 14

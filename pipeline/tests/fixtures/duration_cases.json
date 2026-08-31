@@ -1,0 +1,37 @@
+[
+  {"city": "NYC", "permit_id": "B00000899-I1", "filed_date": "2017-10-20", "issued_date": "2023-03-22", "expected_duration_days": 1979, "expected_excluded": true, "note": "hand-verified 2026-08-31: (2023-03-22 - 2017-10-20) = 1979d > 1825d (5yr) -> excluded"},
+  {"city": "NYC", "permit_id": "B00001130-I1", "filed_date": "2018-02-08", "issued_date": "2023-09-06", "expected_duration_days": 2036, "expected_excluded": true, "note": "hand-verified: 2036d > 1825d -> excluded"},
+  {"city": "NYC", "permit_id": "B00002224-I1", "filed_date": "2018-09-27", "issued_date": "2022-12-02", "expected_duration_days": 1527, "expected_excluded": false, "note": "hand-verified: 1527d <= 1825d -> not excluded"},
+  {"city": "NYC", "permit_id": "B00002685-I1", "filed_date": "2017-11-21", "issued_date": "2023-07-12", "expected_duration_days": 2059, "expected_excluded": true, "note": "hand-verified: 2059d > 1825d -> excluded"},
+  {"city": "NYC", "permit_id": "B00003126-I1", "filed_date": "2017-12-01", "issued_date": "2024-05-13", "expected_duration_days": 2355, "expected_excluded": true, "note": "hand-verified: 2355d > 1825d -> excluded"},
+
+  {"city": "CHICAGO", "permit_id": "2606484", "filed_date": "2015-03-12", "issued_date": "2025-06-13", "expected_duration_days": 3746, "expected_excluded": true, "note": "hand-verified 2026-08-31: 10y span Mar12'15->Mar12'25 = 3653d (3 leap days) + Mar12->Jun13 = 93d = 3746d; > 1825d -> excluded"},
+  {"city": "CHICAGO", "permit_id": "2606924", "filed_date": "2015-03-12", "issued_date": "2025-06-13", "expected_duration_days": 3746, "expected_excluded": true, "note": "same filed/issued pair as 2606484 -- distinct real permit_id, duplicate dates confirmed genuine (not a fixture bug)"},
+  {"city": "CHICAGO", "permit_id": "2860872", "filed_date": "2017-08-07", "issued_date": "2025-07-07", "expected_duration_days": 2891, "expected_excluded": true, "note": "hand-verified: ~7.9yr span -> excluded"},
+  {"city": "CHICAGO", "permit_id": "2884783", "filed_date": "2017-11-01", "issued_date": "2024-03-14", "expected_duration_days": 2325, "expected_excluded": true, "note": "hand-verified: ~6.4yr span -> excluded"},
+  {"city": "CHICAGO", "permit_id": "2930154", "filed_date": "2018-06-08", "issued_date": "2025-04-16", "expected_duration_days": 2504, "expected_excluded": true, "note": "hand-verified: ~6.9yr span -> excluded"},
+
+  {"city": "AUSTIN", "permit_id": "1980-005395 BP", "filed_date": "1980-09-22", "issued_date": "2025-07-03", "expected_duration_days": 16355, "expected_excluded": true, "note": "hand-verified: ~44.8yr span, a genuinely ancient still-open permit record -- excluded"},
+  {"city": "AUSTIN", "permit_id": "1981-006025 BP", "filed_date": "1981-05-07", "issued_date": "2025-09-26", "expected_duration_days": 16213, "expected_excluded": true, "note": "hand-verified: ~44.4yr span -> excluded"},
+  {"city": "AUSTIN", "permit_id": "1982-004762 BP", "filed_date": "1982-12-07", "issued_date": "2024-08-23", "expected_duration_days": 15235, "expected_excluded": true, "note": "hand-verified: ~41.7yr span -> excluded"},
+  {"city": "AUSTIN", "permit_id": "1982-007604 BP", "filed_date": "1982-09-13", "issued_date": "2025-01-10", "expected_duration_days": 15460, "expected_excluded": true, "note": "hand-verified: ~42.3yr span -> excluded"},
+  {"city": "AUSTIN", "permit_id": "1982-008105 BP", "filed_date": "1982-09-21", "issued_date": "2022-09-26", "expected_duration_days": 14615, "expected_excluded": true, "note": "hand-verified: ~40yr span -> excluded"},
+
+  {"city": "SAN FRANCISCO", "permit_id": "200708068856", "filed_date": "2007-08-06T13:02:34", "issued_date": "2022-12-09T14:06:25", "expected_duration_days": 5604, "expected_excluded": true, "note": "hand-verified: SF filed/issued carry timestamps -- duration_days uses the truncated .days delta -- excluded (>5yr)"},
+  {"city": "SAN FRANCISCO", "permit_id": "200808139076", "filed_date": "2008-08-13T13:52:27", "issued_date": "2023-08-11T09:15:58", "expected_duration_days": 5475, "expected_excluded": true, "note": "hand-verified: excluded"},
+  {"city": "SAN FRANCISCO", "permit_id": "200808139077", "filed_date": "2008-08-13T13:55:17", "issued_date": "2023-08-11T08:38:52", "expected_duration_days": 5475, "expected_excluded": true, "note": "hand-verified: excluded"},
+  {"city": "SAN FRANCISCO", "permit_id": "200808139078", "filed_date": "2008-08-13T13:55:17", "issued_date": "2023-08-11T08:56:46", "expected_duration_days": 5475, "expected_excluded": true, "note": "hand-verified: excluded"},
+  {"city": "SAN FRANCISCO", "permit_id": "200810023200", "filed_date": "2008-10-02T09:19:20", "issued_date": "2025-02-03T12:37:43", "expected_duration_days": 5968, "expected_excluded": true, "note": "hand-verified: excluded"},
+
+  {"city": "SEATTLE", "permit_id": "6383881-CN", "filed_date": "2016-12-27", "issued_date": "2024-01-12", "expected_duration_days": 2572, "expected_excluded": true, "note": "hand-verified: ~7yr span -> excluded"},
+  {"city": "SEATTLE", "permit_id": "6395770-CN", "filed_date": "2020-09-30", "issued_date": "2024-03-29", "expected_duration_days": 1276, "expected_excluded": false, "note": "hand-verified: 1276d <= 1825d -> not excluded"},
+  {"city": "SEATTLE", "permit_id": "6400252-CN", "filed_date": "2015-10-13", "issued_date": "2024-01-29", "expected_duration_days": 3030, "expected_excluded": true, "note": "hand-verified: excluded"},
+  {"city": "SEATTLE", "permit_id": "6414553-CN", "filed_date": "2016-07-15", "issued_date": "2023-08-08", "expected_duration_days": 2580, "expected_excluded": true, "note": "hand-verified: excluded (shared_class is null -- unmapped permit type, unrelated to duration math)"},
+  {"city": "SEATTLE", "permit_id": "6421136-CN", "filed_date": "2021-02-17", "issued_date": "2022-12-07", "expected_duration_days": 658, "expected_excluded": false, "note": "hand-verified 2026-08-31: 2021-02-17->2022-02-17 = 365d (no leap day crossed) + Feb17->Dec7 = 293d = 658d; <= 1825d -> not excluded"},
+
+  {"city": "LOS ANGELES", "permit_id": "00010-10001-04146", "filed_date": "2026-03-04", "issued_date": "2026-03-04", "expected_duration_days": 0, "expected_excluded": true, "note": "hand-verified: same-day filed/issued -> 0d, non-positive -> excluded (real LA over-the-counter permit, not a data bug -- see PROGRESS.md)"},
+  {"city": "LOS ANGELES", "permit_id": "01016-20001-24361", "filed_date": "2024-01-29", "issued_date": "2024-01-29", "expected_duration_days": 0, "expected_excluded": true, "note": "hand-verified: 0d -> excluded"},
+  {"city": "LOS ANGELES", "permit_id": "01016-20003-24361", "filed_date": "2024-06-26", "issued_date": "2024-06-26", "expected_duration_days": 0, "expected_excluded": true, "note": "hand-verified: 0d -> excluded"},
+  {"city": "LOS ANGELES", "permit_id": "02014-10001-03616", "filed_date": "2024-06-06", "issued_date": "2024-06-11", "expected_duration_days": 5, "expected_excluded": false, "note": "hand-verified: 5d -> not excluded"},
+  {"city": "LOS ANGELES", "permit_id": "02014-20001-07533", "filed_date": "2025-04-14", "issued_date": "2025-04-14", "expected_duration_days": 0, "expected_excluded": true, "note": "hand-verified: 0d -> excluded"}
+]

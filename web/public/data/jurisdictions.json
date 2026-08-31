@@ -15,7 +15,7 @@
     },
     "chicago": {
       "city": "CHICAGO",
-      "total_permits_in_window": 132487,
+      "total_permits_in_window": 132472,
       "overall_exclusion_rate": 0.3624,
       "data_quality_flag": true,
       "best_confidence_tier": "B",
@@ -28,7 +28,7 @@
     },
     "austin": {
       "city": "AUSTIN",
-      "total_permits_in_window": 47813,
+      "total_permits_in_window": 47812,
       "overall_exclusion_rate": 0.0831,
       "data_quality_flag": false,
       "best_confidence_tier": "B",

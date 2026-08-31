@@ -10,11 +10,23 @@ from __future__ import annotations
 import json
 import sys
 from datetime import datetime, timezone
+from pathlib import Path
 
-EVAL_DIR = __import__("pathlib").Path(__file__).resolve().parent
+EVAL_DIR = Path(__file__).resolve().parent
 GOLD_SET = EVAL_DIR / "gold_set.jsonl"
 RESULTS_DIR = EVAL_DIR / "results"
+LATEST_POINTER = RESULTS_DIR / "LATEST"
 PRECISION_GATE = 0.90
+
+# Import the extraction script's own PROMPT_VERSION rather than
+# hardcoding a copy here -- an earlier version of this file hardcoded
+# "v2-explicit-meeting-date" and it silently went stale once the prompt
+# moved to v3, which is exactly the drift §12's CI check exists to catch.
+sys.path.insert(0, str(EVAL_DIR.parent / "pipeline"))
+import importlib
+extract_mod = importlib.import_module("41_extract_signals")
+PROMPT_VERSION = extract_mod.PROMPT_VERSION
+MODEL = extract_mod.MODEL
 
 
 def main() -> int:
@@ -46,8 +58,8 @@ def main() -> int:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     result = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
-        "model": "gpt-4o-mini",
-        "prompt_version": "v2-explicit-meeting-date",  # bumped after the meeting_date fabrication fix
+        "model": MODEL,
+        "prompt_version": PROMPT_VERSION,
         "n_gold_items": n,
         "action_precision": round(action_precision, 4),
         "use_type_precision": round(use_type_precision, 4),
@@ -58,6 +70,18 @@ def main() -> int:
     result_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"\nWrote {result_path}")
     print(f"\nOverall: {'PASS' if passed else 'FAIL'} -- {'never ship below gate' if not passed else 'meets §5.4 gate'}")
+
+    # This run's own result is NOT auto-promoted to LATEST -- the eval set
+    # here is pre-labeled correctness flags in gold_set.jsonl (built by
+    # hand-verifying real extraction output against source text), not a
+    # live re-extraction, so a mechanical re-run of this script produces
+    # the *same* numbers as last time unless gold_set.jsonl itself was
+    # re-annotated for a genuinely new prompt/model run. Promoting LATEST
+    # is a deliberate, logged step (see PROGRESS.md) -- not silently
+    # automatic here.
+    print(f"\nNote: LATEST currently points to "
+          f"{LATEST_POINTER.read_text(encoding='utf-8').strip() if LATEST_POINTER.exists() else '(unset)'} "
+          f"-- update it by hand if this run supersedes that one.")
     return 0 if passed else 1
 
 

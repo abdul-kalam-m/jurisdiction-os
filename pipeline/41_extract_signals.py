@@ -19,15 +19,24 @@ import pickle
 import re
 import sys
 
-import jos_lib as lib
 from dotenv import load_dotenv
 from openai import OpenAI
 from pydantic import ValidationError
+
+import jos_lib as lib
 from signal_schema import ACTIONS, SignalItem
 
 load_dotenv(lib.REPO / ".env")
 
 MODEL = "gpt-4o-mini"
+# Single source of truth for the prompt's iteration label (§12: "any prompt
+# or model change requires re-running eval" -- CI checks this string
+# against eval/results/LATEST's own prompt_version, see
+# check_prompt_version.py). Bump this whenever EXTRACTION_PROMPT_TEMPLATE
+# changes; eval_runner.py imports this constant rather than hardcoding its
+# own copy, which is exactly the drift that let an earlier version of that
+# file silently claim "v2" after the prompt had already moved to v3.
+PROMPT_VERSION = "v3-mechanical-vote-check"
 CHUNK_CHARS = 40000  # keeps each call well within context + leaves room for a large JSON response
 OUT_JSON = lib.WEB_DATA / "signals.json"
 COST_PER_1M_INPUT = 0.15
@@ -231,6 +240,15 @@ def main() -> int:
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(json.dumps(all_items, indent=2), encoding="utf-8")
     print(f"\nWrote {OUT_JSON}")
+
+    lib.write_meta("signals", {
+        "model": MODEL,
+        "prompt_version": PROMPT_VERSION,
+        "n_items": len(all_items),
+        "n_municipalities": len(muni_counts),
+        "n_validation_failures": n_validation_failures,
+        "cost_usd": round(cost, 4),
+    })
 
     n_munis = len(muni_counts)
     print(f"\nGate check (§1.4: '>=100 items from >=3 municipalities'): "

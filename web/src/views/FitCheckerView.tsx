@@ -34,6 +34,7 @@ export default function FitCheckerView() {
 
       <div className="flex flex-wrap gap-3">
         <select
+          aria-label="Select jurisdiction"
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
           className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-900"
@@ -43,6 +44,7 @@ export default function FitCheckerView() {
           ))}
         </select>
         <select
+          aria-label="Select asset type"
           value={assetType}
           onChange={(e) => setAssetType(e.target.value as AssetType)}
           className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-900"

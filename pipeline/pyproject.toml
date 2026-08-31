@@ -25,6 +25,22 @@ dev = [
 line-length = 100
 target-version = "py311"
 
+[tool.ruff.lint]
+# ISC004 (implicit multi-line string concat inside a list/tuple literal)
+# is stylistic only -- this project uses that pattern throughout for
+# report/doc generation (00_recon.py's RECON.md writer, REJECTED_CANDIDATES),
+# and Python's actual behavior there is unambiguous. Not worth wrapping
+# every one in an extra parens layer for a linter opinion, not a bug risk.
+ignore = ["ISC004"]
+
+[tool.ruff.lint.per-file-ignores]
+# Test fixtures deliberately use naive datetimes, matching the production
+# code's own convention for permit dates -- real DuckDB TIMESTAMP columns
+# and Socrata's ISO8601 dates are naive, not tz-aware, so a tz-aware test
+# fixture would be *inconsistent* with what classify_duration() actually
+# receives in production, not more correct.
+"tests/*" = ["DTZ001"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]

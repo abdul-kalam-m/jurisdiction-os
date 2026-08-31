@@ -5,6 +5,111 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Phase 7 (part 1): testing, CI, and real accessibility fixes (agent: sonnet-5)
+
+**Done:**
+- §12 pytest suite, 49 tests, all against real production code (via
+  `importlib` -- digit-prefixed filenames aren't importable identifiers):
+  - `test_duration_math.py`: 30 hand-verified real permit fixtures (5/city,
+    `tests/fixtures/duration_cases.json`), each with its own hand-computed
+    day-count and a `note` showing the arithmetic -- not synthetic data.
+    Exercises a newly-extracted pure `classify_duration()` (factored out of
+    `10_permit_etl.py`'s classify loop, behavior-preserving) plus boundary
+    cases (exactly 5yr passes, 5yr+1d excluded).
+  - `test_crosswalks.py`: every crosswalk's mapped values must be a
+    recognized shared_class; `crosswalks.CLASSES` must match
+    `20_scorecards.py`'s own copy.
+  - `test_confidence_tiers.py`: tier boundaries, and locks in that tier A is
+    genuinely unreachable by the current `confidence_tier()`.
+  - `test_delay_rule.py`: synthetic series against the real
+    `backtest_group()` -- a known 2x slowdown alerts, a stable series
+    doesn't, a real slowdown with too few permits (n_90d<20) is correctly
+    suppressed, `current` is always the true latest date regardless of the
+    backtest's sampling interval.
+  - Two of my own first-draft tests were themselves wrong (a leap-year
+    miscalculation using `.replace(year=+5)`, and a sparse-window sampling
+    bug that left 90 rows in the window instead of 5) -- caught by running
+    them, not assumed correct, same discipline as the rest of this project.
+- `meta.json` (§6.3 artifact, previously undelivered): every pipeline stage
+  (`10_permit_etl.py`, `20_scorecards.py`, `41_extract_signals.py`,
+  `50_delay_alerts.py`) now calls a new `jos_lib.write_meta()` helper
+  recording its own vintage/provenance under its own key.
+- `check_prompt_version.py` + `eval/results/LATEST`: the §12-specified CI
+  gate -- `meta.json`'s shipped `signals.prompt_version` must match the
+  canonical eval result's. Fixed a real, previously-undetected drift bug
+  in `eval_runner.py` itself: it hardcoded `"v2-explicit-meeting-date"` even
+  though the shipped prompt had already moved to v3 -- now imports
+  `PROMPT_VERSION`/`MODEL` from `41_extract_signals.py` as the single
+  source of truth instead of a second hardcoded copy.
+- `.github/workflows/ci.yml`: pytest + ruff + the new prompt-version check
+  (pipeline job), lint + typecheck + build + Playwright/axe (web job) on
+  every push/PR. Found and fixed a real YAML syntax bug in this same file
+  before it ever ran (`name:` value containing an unquoted colon).
+- **`ruff check .` -- first time ever run against this codebase** (dev
+  dependency existed in `pyproject.toml` since Phase 0 but was never
+  wired into a workflow or run manually until now). Found 25 real issues
+  across the whole pipeline, all fixed or explicitly, individually
+  justified:
+  - 13 auto-fixed (import sorting, `timezone.utc`→`UTC` alias) --
+    behavior-preserving, re-ran pytest after to confirm.
+  - `has_fields` in `00_recon.py`: genuinely dead code, removed.
+  - `df` in `10_permit_etl.py`: **false positive** -- DuckDB's replacement
+    scan resolves it by Python variable name inside the SQL string, ruff's
+    static analysis can't see that. `noqa`'d with the reason inline, not
+    silently ignored project-wide.
+  - Bare `try/except/pass` in `jos_lib.py`: intentional cosmetic
+    UTF-8-stdout fallback, `noqa`'d with reason.
+  - `ISC004` (8 occurrences, `00_recon.py`'s report-generation strings):
+    stylistic-only, ignored project-wide via `pyproject.toml` with a
+    comment explaining why.
+  - `DTZ001` in the new test files: naive datetimes are the test fixtures'
+    *correct*, intentional choice -- they mirror what `classify_duration()`
+    actually receives from real permit data (naive DuckDB TIMESTAMPs), so
+    a tz-aware fixture would be less faithful, not more correct.
+    Per-file-ignored for `tests/*`.
+- **Playwright + axe-core smoke suite** (`web/e2e/smoke.spec.ts`, 19
+  tests): every page renders with zero console errors, zero serious/
+  critical axe violations, fit checker returns a path and updates on
+  jurisdiction change, both signals filters narrow the list, every page
+  shows the disclaimer.
+- **Found and fixed real, shipped WCAG 2.2 AA violations** -- this is the
+  actual point of building the axe suite, not a formality:
+  - `--color-accent-600` (`#0891b2`) measured 3.68:1 against white,
+    failing the 4.5:1 threshold for normal text -- used for the Landing
+    page's eyebrow label. Fixed to cyan-700 (`#0e7490`, 5.36:1), verified
+    dark-mode accent-400 was already compliant (11.16:1) so only the light
+    palette needed a change.
+  - Multiple bare (non-`dark:`-paired) `text-slate-400` instances measured
+    2.63:1 on white -- genuinely unreadable for many users, not a
+    theoretical nitpick. Bumped to `text-slate-600` with a `dark:` pairing
+    added where missing (Scorecards' "&mdash;" cells, "No data" text, the
+    alert-panel footer, Checklist's footer note).
+  - Signals feed's `use_type`/variance badge chips inherited
+    `text-slate-500` from a parent container while sitting on a
+    `bg-slate-100` chip background -- 4.34:1, just under the 4.5:1 gate.
+    Given an explicit `text-slate-700`/`dark:text-slate-300` instead of
+    inheriting.
+  - 6 `<select>` elements (jurisdiction/asset-type pickers on Fit Checker
+    and Checklist, municipality/action filters on Signals) had **no
+    accessible name at all** (critical-impact axe violation, not merely
+    serious) -- added `aria-label` to each.
+- Rebuilt, redeployed to production (https://jurisdiction-os.pages.dev)
+  with the fixes and freshest pipeline data (re-ran the full pipeline --
+  permit ETL, scorecards, delay alerts, signal extraction -- to validate
+  every `write_meta()` call for real, not just read the code).
+
+**⚠ Deviations:** none new -- `ruff`'s ambient rule selection turned out to
+be broader than the bare `[tool.ruff] line-length/target-version` config
+implied (no explicit `select` was ever set); rather than leave that
+implicit and fragile across future ruff version bumps, added an explicit
+`[tool.ruff.lint]` block with the two deliberate ignores documented above.
+
+**Next:** README.md rewrite (still describes Phase 0 status only), §14
+case-study assets (screenshots, CASE_STUDY.md, walkthrough), and an honest
+audit of which §1.4 boxes can actually be checked before calling Phase 7 done.
+
+---
+
 ## 2026-08-31 — Phase 6: delay alerts + automation (agent: sonnet-5) — M5 rule/backtest/UI PASS; workflow-schedule gate genuinely not yet met
 
 **Done:**

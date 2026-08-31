@@ -10,13 +10,13 @@ import hashlib
 import json
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 for _stream in (sys.stdout, sys.stderr):
     try:
         _stream.reconfigure(encoding="utf-8")  # type: ignore[union-attr]
-    except Exception:  # noqa: BLE001
+    except Exception:  # noqa: BLE001, S110 -- cosmetic encoding fallback, nothing to log or act on
         pass
 
 import requests
@@ -28,6 +28,7 @@ MANIFEST = REPO / "data" / "MANIFEST.json"
 PLAYBOOKS = REPO / "playbooks"
 WEB_DATA = REPO / "web" / "public" / "data"
 EVAL_DIR = REPO / "eval"
+META_JSON = WEB_DATA / "meta.json"  # §6.3 artifact contract: per-stage vintages, extract dates, model/prompt version
 
 OWNER_EMAIL = "ar.abdulkalam.mustaq@gmail.com"
 UA = f"jurisdiction-os/1.0 (portfolio project; {OWNER_EMAIL})"
@@ -102,7 +103,7 @@ def manifest_add(name: str, source_url: str, local_path: Path | None,
     data = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.exists() else {}
     entry = {
         "source_url": source_url,
-        "retrieved_utc": datetime.now(timezone.utc).isoformat(),
+        "retrieved_utc": datetime.now(UTC).isoformat(),
         "license_note": license_note,
     }
     if local_path is not None and local_path.exists():
@@ -112,6 +113,19 @@ def manifest_add(name: str, source_url: str, local_path: Path | None,
         entry.update(extra)
     data[name] = entry
     MANIFEST.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+
+def write_meta(section: str, data: dict) -> None:
+    """§6.3 committed artifact `meta.json`: each pipeline stage records its
+    own vintage/provenance under its own top-level key (merge-and-write,
+    same pattern as manifest_add) -- never overwrites another stage's
+    section, so stages can run independently (or partially, e.g. a
+    workflow_dispatch smoke test of just one script) without clobbering
+    the others' most recent vintage info."""
+    META_JSON.parent.mkdir(parents=True, exist_ok=True)
+    existing = json.loads(META_JSON.read_text(encoding="utf-8")) if META_JSON.exists() else {}
+    existing[section] = {"updated_utc": datetime.now(UTC).isoformat(), **data}
+    META_JSON.write_text(json.dumps(existing, indent=2), encoding="utf-8")
 
 
 # --- §4.1 benchmark cities (LOCKED after Phase 0, §13.3) --------------------

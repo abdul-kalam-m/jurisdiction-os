@@ -17,20 +17,37 @@ from __future__ import annotations
 
 import argparse
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
+
+import duckdb
+import pandas as pd
 
 import crosswalks as xw
-import duckdb
 import jos_lib as lib
-import pandas as pd
 
 LOOKBACK_YEARS = 4
 PAGE_SIZE = 50000
 DB_PATH = lib.REPO / "data" / "jurisdiction_os.duckdb"
+EXCLUSION_MAX_DAYS = 365 * 5  # §5.1 exclusion rule: negative/zero or >5yr duration
+
+
+def classify_duration(filed: datetime | None, issued: datetime | None) -> tuple[int | None, bool, str | None]:
+    """Pure §5.1 duration/exclusion rule, factored out of the classify loop
+    below so pytest (§12) can exercise the real production logic against
+    hand-verified fixtures rather than a reimplementation that could drift.
+    Returns (duration_days, excluded, exclusion_reason)."""
+    if not (filed and issued):
+        return None, True, "missing filed or issued date"
+    duration_days = (issued - filed).days
+    if duration_days <= 0:
+        return duration_days, True, "non-positive duration"
+    if duration_days > EXCLUSION_MAX_DAYS:
+        return duration_days, True, "duration > 5 years"
+    return duration_days, False, None
 
 
 def cutoff_date() -> str:
-    dt = datetime.now(timezone.utc) - timedelta(days=365 * LOOKBACK_YEARS)
+    dt = datetime.now(UTC) - timedelta(days=365 * LOOKBACK_YEARS)
     return dt.strftime("%Y-%m-%dT00:00:00")
 
 
@@ -73,7 +90,14 @@ def _parse_date(v: str | None) -> datetime | None:
     if not v:
         return None
     try:
-        return datetime.fromisoformat(v.replace("Z", "+00:00")).replace(tzinfo=None)
+        # Defensive Z-suffix normalization before stripping tzinfo -- most
+        # Socrata date fields observed here are already naive (a no-op for
+        # those), but this also correctly handles the ones that aren't
+        # rather than assuming every source is naive. Not touching this
+        # further: it's exercised by the hand-verified duration-math
+        # fixtures (tests/test_duration_math.py) against real permit dates
+        # across all 6 cities, including SF's timestamped ones.
+        return datetime.fromisoformat(v.replace("Z", "+00:00")).replace(tzinfo=None)  # noqa: FURB162
     except ValueError:
         return None
 
@@ -176,16 +200,7 @@ def process_city(city: str, cfg: dict, con: duckdb.DuckDBPyConnection, cutoff: s
         if shared_class is None:
             n_unmapped += 1
 
-        duration_days = (issued - filed).days if (filed and issued) else None
-        excluded = False
-        exclusion_reason = None
-        if duration_days is not None:
-            if duration_days <= 0:
-                excluded, exclusion_reason = True, "non-positive duration"
-            elif duration_days > 365 * 5:
-                excluded, exclusion_reason = True, "duration > 5 years"
-        else:
-            excluded, exclusion_reason = True, "missing filed or issued date"
+        duration_days, excluded, exclusion_reason = classify_duration(filed, issued)
         if excluded:
             n_excluded += 1
 
@@ -197,7 +212,10 @@ def process_city(city: str, cfg: dict, con: duckdb.DuckDBPyConnection, cutoff: s
         })
 
     if classified:
-        df = pd.DataFrame(classified)[["city", "permit_id", "filed_date", "issued_date", "duration_days",
+        # `df` looks unused to static analysis, but DuckDB's replacement
+        # scan resolves it by Python variable name directly inside the SQL
+        # string below -- it IS the data source for the INSERT.
+        df = pd.DataFrame(classified)[["city", "permit_id", "filed_date", "issued_date", "duration_days",  # noqa: F841
                                         "shared_class", "raw_type", "excluded", "exclusion_reason"]]
         con.execute("INSERT INTO permits SELECT * FROM df")
 
@@ -253,6 +271,14 @@ def main() -> int:
     for r in results:
         flag = "OK" if r["exclusion_rate"] < 0.5 else "HIGH EXCLUSION -- investigate"
         print(f"  {r['city']}: {flag}")
+
+    n_permits = con.execute("SELECT count(*) FROM permits").fetchone()[0]
+    lib.write_meta("permit_etl", {
+        "lookback_years": LOOKBACK_YEARS,
+        "cutoff_date": cutoff,
+        "n_permits_total": n_permits,
+        "cities_refreshed_this_run": [r["city"] for r in results],
+    })
 
     con.close()
     return 0

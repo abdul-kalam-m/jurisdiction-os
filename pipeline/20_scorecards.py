@@ -17,6 +17,7 @@ import json
 import sys
 
 import duckdb
+
 import jos_lib as lib
 
 DB_PATH = lib.REPO / "data" / "jurisdiction_os.duckdb"
@@ -132,6 +133,11 @@ def main() -> int:
         "jurisdictions": registry,
     }, indent=2), encoding="utf-8")
     print(f"\nWrote {JURISDICTIONS_JSON}")
+
+    lib.write_meta("scorecards", {
+        "n_jurisdictions": len(registry),
+        "classes_tracked": CLASSES,
+    })
 
     n_pass = sum(1 for r in registry.values() if r["classes_with_data"])
     print(f"\nGate check (§1.4: 'Scorecards live for >=6 benchmark jurisdictions'): "

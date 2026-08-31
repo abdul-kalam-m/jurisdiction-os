@@ -54,11 +54,15 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: uv run python 41_extract_signals.py
 
+      - name: '§12 -- meta.json prompt_version must match eval/results/LATEST'
+        working-directory: pipeline
+        run: uv run python check_prompt_version.py
+
       - name: Commit updated signal feed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add web/public/data/signals.json data/MANIFEST.json
+          git add web/public/data/signals.json web/public/data/meta.json data/MANIFEST.json
           if git diff --staged --quiet; then
             echo "No signal-feed changes this run."
           else

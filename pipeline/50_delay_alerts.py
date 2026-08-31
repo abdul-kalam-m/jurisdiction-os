@@ -28,6 +28,7 @@ from datetime import timedelta
 from email.mime.text import MIMEText
 
 import duckdb
+
 import jos_lib as lib
 
 DB_PATH = lib.REPO / "data" / "jurisdiction_os.duckdb"
@@ -238,6 +239,13 @@ def main() -> int:
     ALERTS_JSON.write_text(json.dumps(payload, separators=(",", ":"), default=str), encoding="utf-8")
     size_kb = ALERTS_JSON.stat().st_size / 1024
     print(f"\nWrote {ALERTS_JSON} ({size_kb:.1f} KB)")
+
+    lib.write_meta("delay_alerts", {
+        "rule": payload["rule"],
+        "total_backtest_points": total_backtest_points,
+        "currently_alerting_count": len(newly_fired),
+        "artifact_size_kb": round(size_kb, 1),
+    })
 
     send_alert_email(newly_fired)
 

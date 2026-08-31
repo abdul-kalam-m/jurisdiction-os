@@ -44,10 +44,12 @@ def verify_benchmark_city(city: str, cfg: dict) -> dict:
     for ds in cfg["datasets"]:
         url = lib.socrata_resource_url(cfg["domain"], ds["id"])
         try:
-            rows = lib.get_json(url, params={"$limit": 1}, throttle=False)
+            # $limit=1 fetch is kept for its live-verification side effect
+            # (confirms the endpoint actually returns row data, not just a
+            # count) -- the rows themselves aren't otherwise needed here.
+            _ = lib.get_json(url, params={"$limit": 1}, throttle=False)
             count_resp = lib.get_json(url, params={"$select": "count(*)"}, throttle=False)
             n = int(count_resp[0]["count"]) if count_resp else 0
-            has_fields = bool(rows) or n > 0  # presence checked via schema at lock time, not re-derived here
             results.append({"dataset": ds["name"], "id": ds["id"], "ok": True, "row_count": n,
                              "filed_field": ds["filed_field"], "issued_field": ds["issued_field"]})
         except Exception as e:  # noqa: BLE001

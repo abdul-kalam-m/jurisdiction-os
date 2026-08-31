@@ -19,7 +19,9 @@
 
   --color-accent-400: #22d3ee;
   --color-accent-500: #06b6d4;
-  --color-accent-600: #0891b2;
+  /* 0891b2 measured 3.68:1 on white via axe/Playwright (§12 CI) -- fails
+     WCAG AA's 4.5:1 for normal text. 0e7490 (cyan-700) measures 5.36:1. */
+  --color-accent-600: #0e7490;
 
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
 }
