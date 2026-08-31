@@ -5,6 +5,20 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Owner deviation: LLM provider for §5.4 (logged, not yet built)
+
+**⚠ Deviation from §6.2's locked stack (owner-directed, not an agent decision):** the guide
+locks `anthropic` for §5.4's extraction module. Owner instructed using a free/cheap provider
+instead — NVIDIA API, GPT-4o-mini, or a free OpenRouter model, in that preference order, keys
+already available in a `.env` (copied into this repo's own gitignored `.env`, values never
+read/logged by the agent, only confirmed present: `NVIDIA_API_KEY`, `OPENAI_API_KEY`,
+`OPENROUTER_API_KEY`). The exact provider/model choice is deferred to Phase 4 itself (verified
+live against the gold-set precision gate then, not guessed now) — Phases 1-3 don't need this at
+all. `pipeline/pyproject.toml`'s `anthropic` dependency will be swapped for `openai` (all three
+candidate providers are OpenAI-API-compatible) when Phase 4 starts.
+
+---
+
 ## 2026-08-31 — Phase 0: bootstrap + recon (agent: sonnet-5)
 
 Owner selected this as the next portfolio project (after NJ Hazard Vulnerability Dashboard).
