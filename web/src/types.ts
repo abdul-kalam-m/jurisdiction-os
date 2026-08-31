@@ -78,6 +78,42 @@ export interface SignalItem {
   municipality: string
 }
 
+export interface AlertPoint {
+  as_of: string
+  median_90d: number | null
+  median_baseline: number | null
+  n_90d: number
+  ratio: number | null
+  alert: boolean
+}
+
+export interface AlertClassResult {
+  coverage: 'ok' | 'insufficient_history' | 'no_data'
+  detail?: string
+  n_backtest_points?: number
+  n_alert_points?: number
+  current?: AlertPoint
+  timeline?: AlertPoint[]
+}
+
+export interface AlertsPayload {
+  note: string
+  rule: {
+    window_90d_days: number
+    baseline_total_days: number
+    ratio_threshold: number
+    min_n_90d: number
+    live_rule_cadence: string
+    backtest_sample_step_days: number
+  }
+  jurisdictions: Record<string, { city: string; classes: Record<string, AlertClassResult> }>
+  summary: {
+    total_backtest_points: number
+    total_alert_points: number
+    currently_alerting: { jurisdiction: string; shared_class: string }[]
+  }
+}
+
 export const CLASS_LABELS: Record<string, string> = {
   'new-construction-res': 'New Construction (Residential)',
   'new-construction-com': 'New Construction (Commercial)',

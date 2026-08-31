@@ -1,0 +1,98 @@
+name: Weekly permit refresh (M1 + M5)
+
+# OPERATING_GUIDE.md §6.2 (LOCKED cadence): Monday 09:00 UTC -- permits
+# refresh -> scorecards -> delay rule. `workflow_dispatch` is added so the
+# owner (or this session) can trigger a one-off run to verify the workflow
+# itself works, without waiting for the real schedule.
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Cache §6.4 HTTP cache (cache-everything, never refetch unchanged docs)
+        uses: actions/cache@v4
+        with:
+          path: data/_http_cache
+          key: jos-http-cache-${{ github.run_id }}
+          restore-keys: |
+            jos-http-cache-
+
+      - name: Install pipeline dependencies
+        working-directory: pipeline
+        run: uv sync
+
+      - name: M1 -- permit ETL (10_permit_etl.py, all 6 benchmark cities)
+        working-directory: pipeline
+        run: uv run python 10_permit_etl.py
+
+      - name: M1 -- scorecards (20_scorecards.py)
+        working-directory: pipeline
+        run: uv run python 20_scorecards.py
+
+      - name: M5 -- delay-alert rule + backtest (50_delay_alerts.py)
+        working-directory: pipeline
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: uv run python 50_delay_alerts.py
+
+      - name: Commit updated data artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add web/public/data data/MANIFEST.json
+          if git diff --staged --quiet; then
+            echo "No data changes this run."
+          else
+            git commit -m "Automated weekly refresh: permits + scorecards + delay alerts"
+            git push
+          fi
+
+      - name: Check Cloudflare Pages deploy credentials
+        id: cf_check
+        run: |
+          if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID repo secrets are not set -- data refreshed and committed, but the live site was NOT redeployed. See PROGRESS.md (Phase 6) for what the owner needs to add."
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.cf_check.outputs.configured == 'true'
+        with:
+          node-version: 20
+
+      - name: Build web app
+        if: steps.cf_check.outputs.configured == 'true'
+        working-directory: web
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.cf_check.outputs.configured == 'true'
+        working-directory: web
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler pages deploy dist --project-name jurisdiction-os --branch main --commit-dirty=true

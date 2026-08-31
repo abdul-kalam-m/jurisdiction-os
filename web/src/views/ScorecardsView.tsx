@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
+import { BarChart, Bar, LineChart, Line, ReferenceLine, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 import { DATA_BASE_URL } from '../config'
 import { CITY_SLUGS, CLASS_LABELS } from '../types'
-import type { JurisdictionsRegistry, Scorecard } from '../types'
+import type { AlertsPayload, JurisdictionsRegistry, Scorecard } from '../types'
 
 export default function ScorecardsView() {
   const [registry, setRegistry] = useState<JurisdictionsRegistry | null>(null)
   const [selected, setSelected] = useState<string>('nyc')
   const [card, setCard] = useState<Scorecard | null>(null)
+  const [alerts, setAlerts] = useState<AlertsPayload | null>(null)
 
   useEffect(() => {
     fetch(`${DATA_BASE_URL}/jurisdictions.json`).then((r) => r.json()).then(setRegistry).catch(() => setRegistry(null))
+    fetch(`${DATA_BASE_URL}/alerts.json`).then((r) => r.json()).then(setAlerts).catch(() => setAlerts(null))
   }, [])
 
   useEffect(() => {
     fetch(`${DATA_BASE_URL}/scorecards/${selected}.json`).then((r) => r.json()).then(setCard).catch(() => setCard(null))
   }, [selected])
+
+  const selectedAlerts = alerts?.jurisdictions[selected]?.classes
 
   return (
     <div className="flex flex-col gap-6">
@@ -83,6 +87,14 @@ export default function ScorecardsView() {
               <a href="/methods" className="underline">Methods &amp; Data</a> for what this excludes and why.
             </p>
           )}
+          {alerts && (
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              Delay-alert rule (§5.5): ratio of 90-day median cycle time to trailing-year baseline &ge;{' '}
+              {alerts.rule.ratio_threshold}&times;, with &ge; {alerts.rule.min_n_90d} permits in the 90-day window.
+              Backtested over {alerts.summary.total_backtest_points} jurisdiction-class history points
+              (sampled every {alerts.rule.backtest_sample_step_days} days; the live rule itself runs {alerts.rule.live_rule_cadence}).
+            </p>
+          )}
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
             {Object.entries(card.classes).map(([cls, m]) => (
               <div key={cls} className="rounded-md border border-slate-200 p-4 dark:border-slate-800">
@@ -121,6 +133,7 @@ export default function ScorecardsView() {
                         </ResponsiveContainer>
                       </div>
                     )}
+                    <AlertPanel result={selectedAlerts?.[cls]} />
                   </>
                 )}
               </div>
@@ -128,6 +141,47 @@ export default function ScorecardsView() {
           </div>
         </div>
       )}
+    </div>
+  )
+}
+
+function AlertPanel({ result }: { result?: import('../types').AlertClassResult }) {
+  if (!result || result.coverage !== 'ok' || !result.timeline || !result.current) {
+    return null
+  }
+  const { current, timeline, n_alert_points } = result
+  return (
+    <div className="mt-3 border-t border-slate-200 pt-3 dark:border-slate-800">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Delay-alert status</span>
+        {current.alert ? (
+          <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-800 dark:bg-red-900/50 dark:text-red-300">
+            ⚠ Elevated ({current.ratio}&times; baseline)
+          </span>
+        ) : (
+          <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300">
+            ✓ Normal{current.ratio != null ? ` (${current.ratio}×)` : ''}
+          </span>
+        )}
+      </div>
+      <div className="mt-2 h-20">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={timeline}>
+            <ReferenceLine y={1.25} stroke="#dc2626" strokeDasharray="3 3" />
+            <XAxis dataKey="as_of" hide />
+            <YAxis hide domain={['dataMin', 'dataMax']} />
+            <Tooltip
+              formatter={(v: number) => [v, 'ratio']}
+              labelFormatter={(l: string) => l}
+              contentStyle={{ fontSize: 11 }}
+            />
+            <Line type="monotone" dataKey="ratio" stroke="#4f46e5" dot={false} strokeWidth={1.5} connectNulls />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      <p className="mt-1 text-xs text-slate-400">
+        {n_alert_points} of {result.n_backtest_points} backtested points alerted. Dashed line = 1.25&times; threshold.
+      </p>
     </div>
   )
 }

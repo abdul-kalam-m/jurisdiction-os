@@ -5,6 +5,91 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Phase 6: delay alerts + automation (agent: sonnet-5) — M5 rule/backtest/UI PASS; workflow-schedule gate genuinely not yet met
+
+**Done:**
+- `pipeline/50_delay_alerts.py` (module M5, §5.5): per jurisdiction x class,
+  median_90d vs median_baseline (trailing 365d excl. last 90d), alert at
+  ratio >= 1.25x with n_90d >= 20. Backtested over full history: 2,369
+  sampled points (every 14 days -- see size-budget note below) across 30
+  jurisdiction x class combos with enough history, 253 (~10.7%) would have
+  alerted. 4 combos currently alerting as of 2026-08-28/29 (austin new-
+  construction-com, chicago site/civil, san-francisco site/civil, seattle
+  alteration-minor) -- real swings, not synthetic demo data.
+- Caught and fixed two real bugs before shipping, same discipline as every
+  prior phase: (1) the initial `currently_alerting` summary joined
+  `f"{jurisdiction}/{shared_class}"` with "/" as separator -- but
+  `shared_class` values themselves contain "/" (`site/civil`), silently
+  truncating the label on the frontend's `.split('/')`. Fixed by shipping
+  structured `{jurisdiction, shared_class}` objects instead of a joined
+  string, both ends. (2) A stale two-pointer-optimization comment described
+  code that was never actually written (still O(n) filtering per point) --
+  removed the misleading comment rather than leave dead narration in the code.
+- UI: alert timeline + status badge (color+text, never color-only) on each
+  scorecard class card; a live "currently alerting" banner on the Landing
+  page; Methods & Data M5 section disclosing the rule, backtest scope, and
+  the sampling-cadence tradeoff below.
+- `web/public/data/alerts.json`: 475KB on a true weekly backtest cadence,
+  against the §6.3 500KB/file budget -- with refresh.yml adding ~30
+  rows/week, that busts the budget within ~1.5 years. Switched the *stored
+  historical timeline's* sampling to every 14 days (244KB, ~half the
+  growth rate); the live "current" status is always evaluated at the true
+  latest date regardless, so this doesn't affect alerting accuracy, only
+  how densely the demo chart is sampled.
+- `.github/workflows/refresh.yml` (Mon 09:00 UTC: permit ETL -> scorecards
+  -> delay rule -> commit -> conditional Cloudflare Pages deploy) and
+  `signals.yml` (Tue: fetch minutes -> extract -> commit -> conditional
+  deploy), per §6.2's locked cadence. Both validated for YAML syntax; the
+  Cloudflare deploy step in each is gated on `CLOUDFLARE_API_TOKEN` /
+  `CLOUDFLARE_ACCOUNT_ID` being present so a run without them still
+  completes (data refreshed + committed) rather than hard-failing on a step
+  that can't succeed yet.
+- Manually deployed the updated `alerts.json` + UI to production
+  (https://jurisdiction-os.pages.dev) via `wrangler pages deploy`, same as
+  Phase 5 -- the *live site* is current even though the *scheduled*
+  pipeline isn't active yet (see Deviations).
+
+**⚠ Deviations (owner action required, logged rather than done silently):**
+- **Owner-only alert email is a documented stub, not live.** `send_alert_email()`
+  in `50_delay_alerts.py` sends via SMTP if `SMTP_HOST/PORT/USER/PASS` are
+  set in the environment; this project's `.env` has none (only the LLM
+  keys logged in the Phase 4 provider-deviation entry). Setting up a
+  transactional-email account is an owner action -- I don't create new
+  external accounts on my own initiative. Until credentials are supplied
+  (locally or as GitHub Actions secrets), a firing alert is logged to the
+  run output and recorded in `alerts.json` (the in-app feed, which *is*
+  live) but not emailed. Disclosed on the Methods & Data page.
+- **`refresh.yml` / `signals.yml` are written and will run on their real
+  schedule once pushed, but three GitHub repo secrets are still needed for
+  them to do everything they're designed to do:** `OPENAI_API_KEY` (for
+  `signals.yml`'s extraction step -- without it that workflow is *expected*
+  to fail loudly, honestly, not silently skip, since extraction is its
+  actual deliverable, unlike the best-effort email above), and
+  `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` (for the deploy step in
+  both workflows -- gated to skip gracefully without them, per Done above).
+  Adding repo secrets is a GitHub account-settings change and generating a
+  new Cloudflare API token is credential creation -- both are the owner's
+  call, not something I do unilaterally on my own judgment.
+- **§11's own Phase 6 exit criterion -- "two consecutive scheduled runs
+  green" -- cannot be satisfied inside a single session no matter what gets
+  built.** `refresh.yml`'s schedule is Monday 09:00 UTC and `signals.yml`'s
+  is Tuesday; the earliest two-consecutive-green evidence for `refresh.yml`
+  is genuinely calendar-gated to two real Mondays after the secrets above
+  are added (and `signals.yml` similarly needs `OPENAI_API_KEY` added
+  first, or every scheduled run will correctly fail). This is disclosed
+  here rather than the phase being marked complete when it isn't -- same
+  honesty discipline as the Phase 4 precision-gate entry.
+
+**Next:** owner adds the three repo secrets above (or confirms a
+`workflow_dispatch` smoke-test run is sufficient evidence for now); once
+added, watch the next two real Monday/Tuesday runs. Phase 7 (hardening +
+launch) can proceed in parallel -- it doesn't depend on the scheduled runs
+having fired yet.
+
+---
+
+---
+
 ## 2026-08-31 — Phase 5: web app (agent: sonnet-5) — §1.4 gate PASSES, deployed to production
 
 **Done:**

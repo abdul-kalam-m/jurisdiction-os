@@ -1,0 +1,97 @@
+name: Weekly signal-feed refresh (M4)
+
+# OPERATING_GUIDE.md §6.2 (LOCKED cadence): Tuesday -- fetch minutes ->
+# extract -> publish. `workflow_dispatch` added for one-off verification.
+#
+# Unlike refresh.yml's owner-email step (best-effort, degrades gracefully
+# without credentials), this workflow's OPENAI_API_KEY is not optional --
+# extraction is the actual weekly deliverable, so a missing key fails the
+# run honestly rather than faking a green check (see 41_extract_signals.py's
+# own FATAL check). Until the owner adds the OPENAI_API_KEY repo secret,
+# this workflow is expected to go red -- that is the correct signal, not a
+# bug (see PROGRESS.md, Phase 6).
+on:
+  schedule:
+    - cron: "0 9 * * 2"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: signals
+  cancel-in-progress: false
+
+jobs:
+  signals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Cache §6.4 HTTP cache (cache-everything, never refetch unchanged docs)
+        uses: actions/cache@v4
+        with:
+          path: data/_http_cache
+          key: jos-http-cache-${{ github.run_id }}
+          restore-keys: |
+            jos-http-cache-
+
+      - name: Install pipeline dependencies
+        working-directory: pipeline
+        run: uv sync
+
+      - name: M4 -- fetch minutes (§6.4 polite-fetch rules)
+        working-directory: pipeline
+        run: uv run python 40_fetch_minutes.py
+
+      - name: M4 -- extract signals (gold-set-gated prompt, §5.4)
+        working-directory: pipeline
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: uv run python 41_extract_signals.py
+
+      - name: Commit updated signal feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add web/public/data/signals.json data/MANIFEST.json
+          if git diff --staged --quiet; then
+            echo "No signal-feed changes this run."
+          else
+            git commit -m "Automated weekly refresh: signal feed"
+            git push
+          fi
+
+      - name: Check Cloudflare Pages deploy credentials
+        id: cf_check
+        run: |
+          if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID repo secrets are not set -- data refreshed and committed, but the live site was NOT redeployed. See PROGRESS.md (Phase 6) for what the owner needs to add."
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.cf_check.outputs.configured == 'true'
+        with:
+          node-version: 20
+
+      - name: Build web app
+        if: steps.cf_check.outputs.configured == 'true'
+        working-directory: web
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.cf_check.outputs.configured == 'true'
+        working-directory: web
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler pages deploy dist --project-name jurisdiction-os --branch main --commit-dirty=true

@@ -1,6 +1,16 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { DATA_BASE_URL } from '../config'
+import { CLASS_LABELS } from '../types'
+import type { AlertsPayload } from '../types'
 
 export default function LandingView() {
+  const [alerts, setAlerts] = useState<AlertsPayload | null>(null)
+
+  useEffect(() => {
+    fetch(`${DATA_BASE_URL}/alerts.json`).then((r) => r.json()).then(setAlerts).catch(() => setAlerts(null))
+  }, [])
+
   return (
     <div className="flex flex-col gap-12">
       <section className="flex flex-col gap-4 py-8 text-center">
@@ -55,6 +65,30 @@ export default function LandingView() {
           to="/signals"
         />
       </section>
+
+      {alerts && alerts.summary.currently_alerting.length > 0 && (
+        <section className="rounded-lg border border-red-300 bg-red-50 p-4 dark:border-red-900 dark:bg-red-950/30">
+          <p className="text-sm font-semibold text-red-800 dark:text-red-300">
+            ⚠ Live delay alerts ({alerts.summary.currently_alerting.length}) &mdash; module M5 (§5.5)
+          </p>
+          <ul className="mt-2 flex flex-wrap gap-2 text-xs">
+            {alerts.summary.currently_alerting.map(({ jurisdiction, shared_class }) => (
+              <li key={`${jurisdiction}-${shared_class}`}>
+                <Link
+                  to="/scorecards"
+                  className="rounded-full bg-red-100 px-2.5 py-1 font-medium text-red-800 hover:bg-red-200 dark:bg-red-900/50 dark:text-red-300 dark:hover:bg-red-900"
+                >
+                  {jurisdiction} &middot; {CLASS_LABELS[shared_class] ?? shared_class}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-red-700 dark:text-red-400">
+            90-day median cycle time is running &ge; 1.25&times; the trailing-year baseline. See the
+            jurisdiction&apos;s Scorecards detail for the full backtested timeline.
+          </p>
+        </section>
+      )}
 
       <section className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-200">
         <strong>Demonstration product.</strong> Jurisdiction Intelligence OS is a portfolio project built

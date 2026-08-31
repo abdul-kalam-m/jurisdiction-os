@@ -85,6 +85,35 @@ export default function MethodsView() {
       </section>
 
       <section>
+        <h2 className="text-lg font-semibold">M5 &mdash; Delay alerts</h2>
+        <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          Per jurisdiction &times; permit class, weekly: the median cycle time of permits issued in the
+          last 90 days versus the median of the trailing 365 days excluding that same 90-day window.
+          An alert fires when the ratio is &ge; 1.25&times; and at least 20 permits fall in the 90-day
+          window (below that count a swing is more likely noise than signal).
+        </p>
+        <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          The rule is backtested over each jurisdiction &times; class&apos;s full permit history (not
+          just the current week) &mdash; 2,369 sampled history points (every 14 days, a file-size
+          budget tradeoff &mdash; the live rule itself still runs weekly) across 30 combinations with
+          enough history to backtest, of which 253 points (&asymp;10.7%) would have alerted. That
+          backtested timeline is what renders on each jurisdiction&apos;s Scorecards detail page, both
+          to validate the rule against real historical cycle-time swings and to make the delay-alert
+          feature demonstrable without waiting for a live swing to occur. The live &ldquo;current&rdquo;
+          status shown alongside it is always evaluated at the true latest date in the data, independent
+          of that 14-day sampling interval.
+        </p>
+        <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          <strong>Delivery:</strong> in-app only in this build. The rule also emits an owner-only email
+          hook (never external recipients), but this project&apos;s environment has no transactional-email
+          credentials configured &mdash; setting one up means creating a new external account, which is
+          an owner action, not something the pipeline does for itself. Until the owner supplies SMTP
+          credentials, a firing alert is logged and recorded in <code className="rounded bg-slate-100 px-1 dark:bg-slate-800">alerts.json</code> (the
+          in-app feed) but not emailed.
+        </p>
+      </section>
+
+      <section>
         <h2 className="text-lg font-semibold">Refresh cadence</h2>
         <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">
           Static build, no live backend. Weekly automated refresh via GitHub Actions is planned for
