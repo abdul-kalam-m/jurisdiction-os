@@ -1,0 +1,28 @@
+[project]
+name = "jurisdiction-os-pipeline"
+version = "0.1.0"
+description = "Jurisdiction Intelligence OS data pipeline: recon, permit ETL, scorecards, playbooks/checklists, signal-feed extraction, delay alerts (OPERATING_GUIDE.md §6)"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32",
+    "pandas>=2.2",
+    "duckdb>=1.1",
+    "pydantic>=2.8",
+    "anthropic>=0.40",
+    "pdfplumber>=0.11",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

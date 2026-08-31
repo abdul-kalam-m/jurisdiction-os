@@ -1,0 +1,27 @@
+# Jurisdiction Intelligence OS -- see OPERATING_GUIDE.md §8
+# Raw fetched/scraped data is never committed (§13.4: no raw scraped
+# documents in the repo). Processed, size-budgeted artifacts under
+# web/public/data/ ARE committed (§6.3) -- this project's data is small
+# enough to ship directly with the static site, no R2/tiles needed.
+data/raw/
+data/_http_cache/
+
+# Never committed, ever (§6.4, §13.4): the owner-provided Anthropic API key.
+.env
+.env.*
+!.env.example
+
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Node / web
+node_modules/
+web/dist/
+.DS_Store
+
+# wrangler CLI's local account/session cache
+.wrangler/
