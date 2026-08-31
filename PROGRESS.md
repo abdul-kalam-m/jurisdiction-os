@@ -5,6 +5,23 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Owner decision: signal-feed precision gap documented, not force-closed
+
+Owner reviewed the Phase 4 precision-gate shortfall (84.6% action precision vs. the 90% gate,
+prior entry) and chose: **document the gap and proceed to Phase 5**, rather than building a
+two-pass classifier or trying a stronger model first. `signals.json` ships as-is (117 items,
+3 municipalities, item-count gate met).
+
+**Decisions (§13.2):** the 84.6% figure (and the specific 4-case failure pattern: long
+technical testimony over-inferred as "approved" with no actual vote present) must be disclosed
+on the Methods & Data page (§7) when Phase 5 builds it, alongside the gold-set eval methodology
+itself — not quietly omitted. `eval/results/20260831_final_v3.json` is the canonical figure to
+cite.
+
+**Next:** Phase 5 — web app.
+
+---
+
 ## 2026-08-31 — Phase 4: signal feed (agent: sonnet-5) — §1.4 item count gate PASSES, §5.4 precision gate does NOT
 
 **Done:**
