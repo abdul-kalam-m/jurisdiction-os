@@ -1,0 +1,61 @@
+# NYC -- the one benchmark city included for contrast alongside the 4 NJ
+# deep-dive municipalities (OPERATING_GUIDE.md §11 Phase 3: "2 asset types
+# x NJ deep-dive set (+ one benchmark city for contrast)"). Structurally
+# different from the NJ towns: no town-level Planning/Zoning Board -- DOB
+# handles building permits directly, with DCP/CPC/BSA involved only for
+# discretionary zoning actions (larger or non-compliant projects), not a
+# routine step for most multifamily/small-commercial permits the way NJ's
+# MLUL-driven site plan review is.
+jurisdiction: "New York City"
+state: "NY"
+verified: false
+statutory_framework:
+  description: >
+    NYC Zoning Resolution (not the NJ MLUL) governs use/bulk; DOB
+    interprets and enforces it directly when issuing building permits.
+  citations:
+    - name: "NYC Zoning Process overview (DCP)"
+      url: "https://www.nyc.gov/site/planning/zoning/zoning-process.page"
+local_code:
+  note: >
+    Confirmed live (Phase 3 research): DOB "holds primary responsibility
+    for interpreting and enforcing the City's Zoning Resolution and issues
+    building permits after reviewing building plans" -- most projects
+    that comply with the zoning envelope go straight through DOB, only
+    projects needing a discretionary zoning action (variance, special
+    permit, rezoning) route through DCP/BSA/CPC first. Processing time
+    itself "ranges from same-day approval (for professionally certified
+    filings) to four or more months for complex projects under standard
+    DOB plan examination" -- matches this project's own Phase 1 finding
+    that NYC's real permit-cycle distribution is bimodal (self-cert vs
+    full review), not a single typical duration.
+permit_paths:
+  multifamily:
+    triggering_conditions: ["new construction", "alteration adding units", "site work"]
+    likely_permits: ["DOB new building (NB) or alteration (Alt-1/2/3) permit", "BSA variance or special permit (if the project doesn't comply with the zoning envelope by-right)"]
+    hearing_likelihood: "by-right (DOB-only) if fully zoning-compliant; discretionary-review-likely otherwise -- NYC's zoning code varies block-to-block, not resolvable generically"
+    hearing_likelihood_basis: >
+      Confirmed live: NYC's Zoning Resolution is "a patchwork of
+      residential, commercial, and manufacturing zones where permitted
+      uses and bulk allowances vary significantly from block to block" --
+      unlike the NJ towns above, there's no single town-wide default to
+      lean on; a specific parcel's by-right status depends entirely on
+      its own zoning district and any applicable overlay, not resolved at
+      the jurisdiction level here.
+    review_body: "DOB (by-right); Board of Standards and Appeals (variance) or City Planning Commission (special permit/rezoning), if triggered"
+    submission_requirements:
+      - item: "Zoning Resolution compliance review (self-certified or DOB plan exam)"
+        citation: "https://www.nyc.gov/site/planning/zoning/zoning-process.page"
+      - item: "DOB building permit application (DOB NOW: Build)"
+        citation: "https://www.nyc.gov/site/planning/zoning/zoning-process.page"
+  small-commercial:
+    triggering_conditions: ["new construction", "change of use", "tenant fit-out affecting egress/occupancy"]
+    likely_permits: ["DOB alteration permit (interior fit-out) or new building permit"]
+    hearing_likelihood: "by-right (DOB-only) for compliant fit-outs; discretionary-review-likely for new construction or a use change crossing a zoning-district boundary condition"
+    hearing_likelihood_basis: "Same block-by-block zoning-dependency caveat as multifamily above -- NYC's own bimodal cycle-time distribution (Phase 1 scorecard) reflects exactly this split between self-cert-eligible and full-review projects."
+    review_body: "DOB (by-right); City Planning/BSA (if triggered)"
+    submission_requirements:
+      - item: "Zoning Resolution compliance review"
+        citation: "https://www.nyc.gov/site/planning/zoning/zoning-process.page"
+      - item: "DOB building permit application"
+        citation: "https://www.nyc.gov/site/planning/zoning/zoning-process.page"

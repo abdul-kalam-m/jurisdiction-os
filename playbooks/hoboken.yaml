@@ -1,0 +1,53 @@
+jurisdiction: "Hoboken"
+state: "NJ"
+verified: false
+statutory_framework:
+  description: "Same statewide MLUL framework as every NJ municipality in this project's set."
+  citations:
+    - name: "N.J.S.A. 40:55D-37 (site plan review)"
+      url: "https://www.nj.gov/state/bac/planning/documents/mlul022017.pdf"
+    - name: "N.J.S.A. 40:55D-70 (variances)"
+      url: "https://law.justia.com/codes/new-jersey/title-40/section-40-55d-70/"
+local_code:
+  zoning: {chapter: "Chapter 196 (Zoning)", url: "https://ecode360.com/15237147"}
+  land_use_procedures: {chapter: "Chapter 44 (Land Use Procedures) / Article I (Planning Board)", url: "https://ecode360.com/29497759"}
+  performance_standards: {chapter: "Article XII (Performance Standards)", url: "https://ecode360.com/15238498"}
+  note: >
+    Planning Board reviews and approves preliminary/final site plan
+    applications "in accordance with Chapter 44 and Chapter 196," and
+    may attach performance-standard conditions (confirmed live, Phase 3
+    research) -- Hoboken's own board explicitly cites both chapters
+    together, not just the zoning chapter alone.
+permit_paths:
+  multifamily:
+    triggering_conditions: ["new construction", "conversion adding units", "site work"]
+    likely_permits: ["Zoning permit", "Site plan approval (Planning Board)", "Building permit"]
+    hearing_likelihood: "variance-likely"
+    hearing_likelihood_basis: >
+      Hoboken is a dense, largely built-out mile-square city -- new
+      multifamily construction routinely involves lot consolidation,
+      height, or parking relief in at least some zones, though a specific
+      parcel's exact by-right status depends on its zone district
+      (not resolved generically here, marked conservative pending
+      per-zone research the owner may add before flipping verified: true).
+    review_body: "Planning Board (site plan); Zoning Board of Adjustment (if a variance is needed)"
+    submission_requirements:
+      - item: "Site plan application (Planning Board)"
+        citation: "https://ecode360.com/29497759"
+      - item: "Zoning compliance review"
+        citation: "https://www.hobokennj.gov/departments/zoning-office"
+      - item: "Performance-standard compliance evidence (as a condition of site plan approval)"
+        citation: "https://ecode360.com/15238498"
+      - item: "Building permit application"
+        citation: "https://ecode360.com/HO0741"
+  small-commercial:
+    triggering_conditions: ["new construction", "change of use", "tenant fit-out affecting egress/occupancy"]
+    likely_permits: ["Zoning permit", "Site plan approval (if triggered)", "Building permit"]
+    hearing_likelihood: "by-right (interior fit-out) or variance-likely (new construction/exterior work)"
+    hearing_likelihood_basis: "Same scope-dependent split as Jersey City's small-commercial path -- interior-only work rarely triggers a hearing, exterior/new-construction work more often does in this built-out city."
+    review_body: "Planning Board (if site plan triggered); otherwise Zoning/Construction only"
+    submission_requirements:
+      - item: "Zoning compliance review"
+        citation: "https://www.hobokennj.gov/departments/zoning-office"
+      - item: "Building permit application"
+        citation: "https://ecode360.com/HO0741"

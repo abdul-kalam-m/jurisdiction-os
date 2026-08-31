@@ -1,0 +1,85 @@
+{
+  "jurisdiction": "Princeton",
+  "state": "NJ",
+  "verified": false,
+  "statutory_framework": {
+    "description": "Same statewide MLUL framework as every NJ municipality in this project's set.",
+    "citations": [
+      {
+        "name": "N.J.S.A. 40:55D-37 (site plan review)",
+        "url": "https://www.nj.gov/state/bac/planning/documents/mlul022017.pdf"
+      },
+      {
+        "name": "N.J.S.A. 40:55D-70 (variances)",
+        "url": "https://law.justia.com/codes/new-jersey/title-40/section-40-55d-70/"
+      }
+    ]
+  },
+  "local_code": {
+    "planning_board": {
+      "chapter": "Powers as to applications for development",
+      "url": "https://ecode360.com/36763019"
+    },
+    "zoning_board": {
+      "chapter": "Article III: Zoning Board of Adjustment",
+      "url": "https://ecode360.com/36771984"
+    },
+    "note": "Princeton's Planning Board \"receives, reviews and acts upon applications for approval of subdivision plats, site plans and conditional uses, except where such authority is conferred upon the Zoning Board of Adjustment\" (confirmed live, Phase 3 research) -- the split follows the standard MLUL pattern (Planning Board unless a variance is also needed, in which case ZBA can take both together). Princeton has a dedicated \"AH-3\" affordable-housing residential district where multi-family is a principal *permitted* use (not variance-dependent) -- a real, town-specific by-right pocket worth surfacing distinctly from the general variance-likely default below.\n"
+  },
+  "permit_paths": {
+    "multifamily": {
+      "triggering_conditions": [
+        "new construction",
+        "conversion adding units",
+        "site work"
+      ],
+      "likely_permits": [
+        "Zoning permit",
+        "Site plan approval (Planning Board)",
+        "Building permit"
+      ],
+      "hearing_likelihood": "by-right in AH-3 Residential District; variance-likely elsewhere",
+      "hearing_likelihood_basis": "Confirmed live: \"multi-family affordable housing rental development is a principal permitted use in the AH-3 Residential District.\" Outside AH-3, Princeton's other residential zones are predominantly single-family/low-density, so multifamily elsewhere typically needs at least a \"d\" use variance.\n",
+      "review_body": "Planning Board (site plan, or AH-3 by-right cases); Zoning Board of Adjustment (variance cases)",
+      "submission_requirements": [
+        {
+          "item": "Site plan / development application",
+          "citation": "https://ecode360.com/36763019"
+        },
+        {
+          "item": "Zoning compliance review",
+          "citation": "https://www.princetonnj.gov/451/Zoning"
+        },
+        {
+          "item": "Variance application (if outside AH-3)",
+          "citation": "https://ecode360.com/36771984"
+        }
+      ]
+    },
+    "small-commercial": {
+      "triggering_conditions": [
+        "new construction",
+        "change of use",
+        "tenant fit-out affecting egress/occupancy"
+      ],
+      "likely_permits": [
+        "Zoning permit",
+        "Site plan approval (if triggered)",
+        "Building permit"
+      ],
+      "hearing_likelihood": "by-right (interior fit-out) or variance-likely (new construction)",
+      "hearing_likelihood_basis": "Same general scope-dependent split as the other NJ towns in this set -- Princeton's own commercial-district specifics weren't resolved to zone-level detail in this research pass.",
+      "review_body": "Planning Board (if site plan triggered); otherwise Zoning only",
+      "submission_requirements": [
+        {
+          "item": "Zoning compliance review",
+          "citation": "https://www.princetonnj.gov/451/Zoning"
+        },
+        {
+          "item": "Building permit application",
+          "citation": "https://ecode360.com/36763019"
+        }
+      ]
+    }
+  }
+}

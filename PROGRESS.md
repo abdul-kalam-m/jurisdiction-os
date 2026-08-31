@@ -5,6 +5,52 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-08-31 — Phase 3: playbooks + fit/checklist (agent: sonnet-5)
+
+**Done:**
+- 5 playbooks (`playbooks/{slug}.yaml`): the 4 locked NJ deep-dive municipalities (Jersey City,
+  Hoboken, Princeton, Montclair) + NYC as the one benchmark city for contrast, per §11 Phase 3's
+  own scope ("+ one benchmark city"). Every fact researched live and cited to a real official
+  source (NJ statutes via nj.gov/justia.com; municipal code via Municode/eCode360; NYC via
+  nyc.gov/site/planning) — no fabricated or interpolated content (§13.4).
+- **Real, jurisdiction-specific findings surfaced during research, not generic boilerplate per
+  town**: Princeton has a dedicated "AH-3" district where multifamily is a *principal permitted
+  use* (by-right, not variance-dependent) — a genuine by-right pocket distinct from its own
+  general variance-likely default. Montclair has a purpose-built "R-3 Garden Group Zone" for
+  multifamily plus a standalone Chapter 213 with real multifamily-specific standards (screening,
+  lighting) and a lighter-weight "minor site plan" track via its Development Review Committee.
+  Jersey City's site plan review applies citywide across all zones *and* Redevelopment Plan
+  areas, not just conventional zoning districts. NYC's own zoning is confirmed to vary
+  block-to-block with no town-wide by-right default to lean on, unlike the NJ towns — its
+  playbook says so explicitly rather than implying a false certainty.
+- `30_playbooks.py`: compiles YAML -> the §6.3 artifact contract (`playbooks/{slug}.json`),
+  enforcing §5.3's hard citation gate (every submission requirement needs a real URL — the
+  script raises `SystemExit(1)` if any are missing, not a warning) and runs the fit-checker
+  logic (§5.2) against 6 test scenarios.
+- **Both Phase 3 gates pass**: citation gate (5/5 playbooks, every requirement cited) and
+  fit-checker coherence (6/6 test scenarios return a real permit path + hearing likelihood +
+  review body + checklist, deliberately covering the by-right pockets and the non-NJ contrast
+  city, not 6 near-identical NJ multifamily cases).
+
+**Decisions (§13.2):** every playbook ships `verified: false` — per §5.3's own design, this is
+the *intended* state for LLM-assisted drafts pending owner review, not a gap to close in this
+phase. Where per-zone dimensional detail (setbacks, FAR, etc.) wasn't resolved to a specific
+parcel/zone in this research pass, the playbook says so explicitly (e.g. Jersey City's
+Redevelopment-Plan-area dependency, NYC's block-to-block variation) rather than asserting a
+generic default as if it were verified fact — matching §13.4's prohibition on fabricating or
+interpolating content, applied to *omission* honesty as much as citation honesty.
+
+**⚠ Deviations / open items:** none — this phase's own scope (playbooks + fit-checker
+mechanics) is complete; deeper per-zone dimensional research is explicitly deferred to the
+owner's own review pass before flipping any `verified` flag, per §13.3 ("playbook `verified`
+flags" is owner-only, never an agent decision).
+
+**Next:** Phase 4 — signal feed (LLM extraction from NJ planning-board minutes). Needs the
+owner-directed LLM provider decision (already logged above) resolved to a specific model before
+building the extraction pipeline.
+
+---
+
 ## 2026-08-31 — Phase 2: scorecards (agent: sonnet-5)
 
 **Done:**

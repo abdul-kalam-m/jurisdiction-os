@@ -1,0 +1,97 @@
+{
+  "jurisdiction": "Montclair",
+  "state": "NJ",
+  "verified": false,
+  "statutory_framework": {
+    "description": "Same statewide MLUL framework as every NJ municipality in this project's set.",
+    "citations": [
+      {
+        "name": "N.J.S.A. 40:55D-37 (site plan review)",
+        "url": "https://www.nj.gov/state/bac/planning/documents/mlul022017.pdf"
+      },
+      {
+        "name": "N.J.S.A. 40:55D-70 (variances)",
+        "url": "https://law.justia.com/codes/new-jersey/title-40/section-40-55d-70/"
+      }
+    ]
+  },
+  "local_code": {
+    "zoning": {
+      "chapter": "Chapter 347 (Zoning)",
+      "url": "https://ecode360.com/7189542"
+    },
+    "site_plan_review": {
+      "chapter": "Chapter 281 (Site Plan Review)",
+      "url": "https://ecode360.com/7187917"
+    },
+    "planning_board": {
+      "chapter": "Article I (Planning Board)",
+      "url": "https://ecode360.com/7186688"
+    },
+    "multifamily_specific": {
+      "chapter": "Chapter 213 (Multifamily Buildings) / Article VIII (R-3 Garden Group Zone)",
+      "url": "https://ecode360.com/7190023"
+    },
+    "note": "Montclair has a dedicated multifamily zoning district (\"R-3 Garden Group Zone\") and a standalone Chapter 213 for multifamily-building standards (garbage/recycling screening, parking-area lighting, etc., confirmed live) -- more codified multifamily-specific detail than any other NJ town in this project's set. Minor site plans go through the Development Review Committee under Chapter 281's own standards, a lighter-weight path than full Planning Board review for larger projects.\n"
+  },
+  "permit_paths": {
+    "multifamily": {
+      "triggering_conditions": [
+        "new construction",
+        "conversion adding units",
+        "parking lot new/expanded (separately fee-triggering, $1,500 per the code)"
+      ],
+      "likely_permits": [
+        "Zoning permit",
+        "Site plan approval (minor via Development Review Committee, or major via Planning Board)",
+        "Building permit"
+      ],
+      "hearing_likelihood": "by-right in R-3 Garden Group Zone; variance-likely elsewhere",
+      "hearing_likelihood_basis": "R-3 is Montclair's own purpose-built multifamily district; outside it, multifamily in a town whose other residential zones are predominantly lower-density typically needs a use variance, the same general pattern as Princeton's AH-3 case.\n",
+      "review_body": "Development Review Committee (minor site plan) or Planning Board (major); Zoning Board of Adjustment (variance cases)",
+      "submission_requirements": [
+        {
+          "item": "Site plan application",
+          "citation": "https://ecode360.com/7187917"
+        },
+        {
+          "item": "Multifamily-specific compliance (screening, lighting per Chapter 213)",
+          "citation": "https://ecode360.com/7190023"
+        },
+        {
+          "item": "Zoning compliance review",
+          "citation": "https://ecode360.com/7189542"
+        },
+        {
+          "item": "Building permit application",
+          "citation": "https://ecode360.com/7185803"
+        }
+      ]
+    },
+    "small-commercial": {
+      "triggering_conditions": [
+        "new construction",
+        "change of use",
+        "tenant fit-out affecting egress/occupancy"
+      ],
+      "likely_permits": [
+        "Zoning permit",
+        "Minor site plan (Development Review Committee) or major (Planning Board), if triggered",
+        "Building permit"
+      ],
+      "hearing_likelihood": "by-right (interior fit-out, minor site plan track) or variance-likely (new construction)",
+      "hearing_likelihood_basis": "Montclair's own minor-site-plan track (Development Review Committee, Chapter 281) gives small commercial projects a lighter-weight path than full Planning Board review when the scope qualifies -- the same general new-construction-vs-fit-out split as the other NJ towns otherwise applies.",
+      "review_body": "Development Review Committee (minor) or Planning Board (major, if triggered); otherwise Zoning only",
+      "submission_requirements": [
+        {
+          "item": "Zoning compliance review",
+          "citation": "https://ecode360.com/7189542"
+        },
+        {
+          "item": "Building permit application",
+          "citation": "https://ecode360.com/7185803"
+        }
+      ]
+    }
+  }
+}
