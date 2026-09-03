@@ -64,7 +64,19 @@ jobs:
             echo "No data changes this run."
           else
             git commit -m "Automated weekly refresh: permits + scorecards + delay alerts"
-            git push
+            # refresh.yml and signals.yml can genuinely race on a manual
+            # workflow_dispatch overlap (observed for real: this exact
+            # push lost a race to signals.yml once) -- rebase-and-retry
+            # rather than a bare push that fails outright on conflict.
+            for i in 1 2 3 4 5; do
+              if git push; then
+                break
+              fi
+              echo "Push rejected (attempt $i/5) -- fetching and rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main
+              sleep $((RANDOM % 10 + 1))
+            done
           fi
 
       - name: Check Cloudflare Pages deploy credentials

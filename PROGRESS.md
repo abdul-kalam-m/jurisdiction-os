@@ -5,6 +5,49 @@ Done / Decisions / ⚠ Deviations / Next.
 
 ---
 
+## 2026-09-03 — Owner added repo secrets; first real automated runs; one more real bug found and fixed
+
+**Done:**
+- Owner added `OPENAI_API_KEY`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` as GitHub repo
+  secrets. Two issues surfaced and were fixed along the way, both real, neither hypothetical:
+  - The Cloudflare token was initially scoped with a client-IP filter to the owner's own machine
+    -- would have rejected every request from a GitHub-hosted runner (dynamic IP range). Owner
+    removed the IP restriction; permission scope (Pages:Edit only) is the correct boundary for a
+    CI credential with a rotating source IP, not an IP allowlist.
+  - The first `OPENAI_API_KEY` save somehow stored the literal 3 characters `***` rather than the
+    real key -- confirmed from the raw runner error (`httpx2.LocalProtocolError: Illegal header
+    value b'***'`; GitHub's log redaction never alters what a *running process* receives, only
+    what's printed, so this proved the stored value itself was wrong). Owner re-saved it correctly.
+- **`refresh.yml` ran for real via `workflow_dispatch` end-to-end with live secrets** (run
+  33814282001, 20m24s -- genuinely slower than the Phase 6 smoke test, live Socrata API response
+  time, not a hang): permit ETL (~1.2M rows, 6 cities) -> scorecards -> delay-alert backtest ->
+  real `git commit`+push that landed on `origin/main` (`3ba3604`) -> real `npm install`+build ->
+  **real `wrangler pages deploy` to production**, confirmed via the job's own log
+  ("Deployment complete! ... jurisdiction-os.pages.dev"). This is the first fully unattended
+  refresh+deploy this project has ever completed.
+- **Found a real concurrency bug while dispatching both workflows back-to-back to test them**:
+  `signals.yml`'s run (33815034758) actually **succeeded at extraction** with the corrected API
+  key -- real signals.json/meta.json changes, committed locally on the runner -- but its `git push`
+  was rejected because `refresh.yml`'s own push landed on `main` in between (`! [rejected] ...
+  (fetch first)`). Neither workflow pulled/rebased before pushing, so two pushes racing (a real
+  scenario any time an owner manually dispatches one while the other's mid-run, not just a
+  contrived test) fails outright rather than resolving. **Fixed** in both workflows: `git push` is
+  now retried up to 5x with a `git fetch && git rebase origin/main` between attempts and a small
+  random backoff, instead of a bare single push. The extracted signals.json/meta.json from the
+  failed run were lost when that runner terminated (ephemeral disk) -- re-triggering after the fix
+  lands to get that data committed for real.
+
+**⚠ Deviations:** none -- both bugs found here were genuine, fixed on the actual cause (IP
+filtering has no relationship to GitHub's runner IPs; the git race needed a retry loop, not a
+bigger hammer), not worked around.
+
+**Next:** push the git-push-retry fix, re-trigger `signals.yml` once more to get real extracted
+data landed and deployed, then this is the first real evidence point toward the "two consecutive
+scheduled runs green" Phase 6 exit criterion -- the *next* real Monday/Tuesday firings are what
+close it out.
+
+---
+
 ## 2026-08-31 — Phase 7 (part 2): CI fully green on a real runner; honest §1.4 audit
 
 **Done:**
