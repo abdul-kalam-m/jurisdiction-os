@@ -1,23 +1,23 @@
 {
   "city": "SEATTLE",
-  "total_permits_in_window": 24335,
-  "overall_exclusion_rate": 0.1426,
+  "total_permits_in_window": 24338,
+  "overall_exclusion_rate": 0.1427,
   "data_quality_flag": false,
   "classes": {
     "new-construction-res": {
       "coverage": "ok",
-      "n_permits": 4159,
+      "n_permits": 4167,
       "median_days": 210,
       "p25_days": 144,
       "p75_days": 364,
       "annual_volume": {
-        "2022": 287,
+        "2022": 278,
         "2023": 1004,
         "2024": 950,
         "2025": 999,
-        "2026": 919
+        "2026": 936
       },
-      "trend_slope_per_year": 125.9,
+      "trend_slope_per_year": 131.1,
       "n_years": 5,
       "confidence_tier": "B"
     },
@@ -40,52 +40,52 @@
     },
     "alteration-major": {
       "coverage": "ok",
-      "n_permits": 13573,
-      "median_days": 48,
+      "n_permits": 13560,
+      "median_days": 48.0,
       "p25_days": 7,
       "p75_days": 113,
       "annual_volume": {
-        "2022": 1046,
+        "2022": 1014,
         "2023": 3390,
         "2024": 3310,
         "2025": 3511,
-        "2026": 2316
+        "2026": 2335
       },
-      "trend_slope_per_year": 266.1,
+      "trend_slope_per_year": 276.3,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-minor": {
       "coverage": "ok",
-      "n_permits": 600,
-      "median_days": 34.0,
+      "n_permits": 599,
+      "median_days": 34,
       "p25_days": 16,
       "p75_days": 62,
       "annual_volume": {
-        "2022": 57,
+        "2022": 56,
         "2023": 146,
         "2024": 150,
         "2025": 150,
         "2026": 97
       },
-      "trend_slope_per_year": 8.4,
+      "trend_slope_per_year": 8.6,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "demolition": {
       "coverage": "ok",
-      "n_permits": 1550,
+      "n_permits": 1552,
       "median_days": 91.0,
       "p25_days": 30,
       "p75_days": 222,
       "annual_volume": {
-        "2022": 138,
+        "2022": 135,
         "2023": 401,
         "2024": 398,
         "2025": 390,
-        "2026": 223
+        "2026": 228
       },
-      "trend_slope_per_year": 15.9,
+      "trend_slope_per_year": 17.5,
       "n_years": 5,
       "confidence_tier": "B"
     },

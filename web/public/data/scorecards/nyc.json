@@ -1,57 +1,57 @@
 {
   "city": "NYC",
-  "total_permits_in_window": 650550,
+  "total_permits_in_window": 650311,
   "overall_exclusion_rate": 0.1011,
   "data_quality_flag": false,
   "classes": {
     "new-construction-res": {
       "coverage": "ok",
-      "n_permits": 65188,
-      "median_days": 184.0,
+      "n_permits": 65167,
+      "median_days": 184,
       "p25_days": 43,
       "p75_days": 449,
       "annual_volume": {
-        "2022": 3090,
+        "2022": 2998,
         "2023": 13220,
-        "2024": 16410,
-        "2025": 17486,
-        "2026": 14982
+        "2024": 16406,
+        "2025": 17483,
+        "2026": 15060
       },
-      "trend_slope_per_year": 2805.0,
+      "trend_slope_per_year": 2838.7,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "new-construction-com": {
       "coverage": "ok",
-      "n_permits": 10842,
-      "median_days": 277.0,
-      "p25_days": 76,
-      "p75_days": 546,
+      "n_permits": 10841,
+      "median_days": 278,
+      "p25_days": 77,
+      "p75_days": 547,
       "annual_volume": {
-        "2022": 537,
-        "2023": 2180,
-        "2024": 3006,
-        "2025": 2972,
-        "2026": 2147
+        "2022": 516,
+        "2023": 2177,
+        "2024": 3008,
+        "2025": 2974,
+        "2026": 2166
       },
-      "trend_slope_per_year": 401.2,
+      "trend_slope_per_year": 409.7,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-major": {
       "coverage": "ok",
-      "n_permits": 501566,
+      "n_permits": 501346,
       "median_days": 86.0,
       "p25_days": 12,
       "p75_days": 401,
       "annual_volume": {
-        "2022": 38646,
-        "2023": 120875,
-        "2024": 125320,
-        "2025": 127883,
-        "2026": 88842
+        "2022": 37859,
+        "2023": 120880,
+        "2024": 125316,
+        "2025": 127900,
+        "2026": 89391
       },
-      "trend_slope_per_year": 10740.0,
+      "trend_slope_per_year": 11008.4,
       "n_years": 5,
       "confidence_tier": "B"
     },
