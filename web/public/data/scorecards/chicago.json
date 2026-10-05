@@ -1,7 +1,7 @@
 {
   "city": "CHICAGO",
-  "total_permits_in_window": 132435,
-  "overall_exclusion_rate": 0.3607,
+  "total_permits_in_window": 132145,
+  "overall_exclusion_rate": 0.3518,
   "data_quality_flag": true,
   "classes": {
     "new-construction-res": {
@@ -12,69 +12,69 @@
     },
     "alteration-major": {
       "coverage": "ok",
-      "n_permits": 21359,
+      "n_permits": 21443,
       "median_days": 51,
-      "p25_days": 18,
-      "p75_days": 111,
+      "p25_days": 19,
+      "p75_days": 112,
       "annual_volume": {
-        "2022": 1333,
+        "2022": 989,
         "2023": 4670,
         "2024": 6164,
-        "2025": 5483,
-        "2026": 3709
+        "2025": 5487,
+        "2026": 4133
       },
-      "trend_slope_per_year": 556.5,
+      "trend_slope_per_year": 710.5,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-minor": {
       "coverage": "ok",
-      "n_permits": 48680,
+      "n_permits": 49452,
       "median_days": 7.0,
       "p25_days": 2,
       "p75_days": 15,
       "annual_volume": {
-        "2022": 2219,
+        "2022": 1568,
         "2023": 8410,
         "2024": 13505,
-        "2025": 14667,
-        "2026": 9879
+        "2025": 14664,
+        "2026": 11305
       },
-      "trend_slope_per_year": 2157.7,
+      "trend_slope_per_year": 2572.8,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "demolition": {
       "coverage": "ok",
-      "n_permits": 529,
+      "n_permits": 579,
       "median_days": 70,
-      "p25_days": 47,
-      "p75_days": 112,
+      "p25_days": 46,
+      "p75_days": 106,
       "annual_volume": {
-        "2022": 45,
+        "2022": 32,
         "2023": 62,
         "2024": 63,
         "2025": 30,
-        "2026": 329
+        "2026": 392
       },
-      "trend_slope_per_year": 53.6,
+      "trend_slope_per_year": 68.8,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "site/civil": {
       "coverage": "ok",
-      "n_permits": 9226,
-      "median_days": 28.0,
-      "p25_days": 13,
+      "n_permits": 9258,
+      "median_days": 29.0,
+      "p25_days": 14,
       "p75_days": 64,
       "annual_volume": {
-        "2022": 710,
+        "2022": 557,
         "2023": 2280,
         "2024": 2413,
-        "2025": 2452,
-        "2026": 1371
+        "2025": 2453,
+        "2026": 1555
       },
-      "trend_slope_per_year": 149.4,
+      "trend_slope_per_year": 216.9,
       "n_years": 5,
       "confidence_tier": "B"
     }
