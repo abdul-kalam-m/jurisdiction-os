@@ -1,11 +1,11 @@
 {
   "signals": {
-    "updated_utc": "2026-09-29T15:38:53.746061+00:00",
+    "updated_utc": "2026-10-06T15:53:30.584574+00:00",
     "model": "gpt-4o-mini",
     "prompt_version": "v3-mechanical-vote-check",
-    "n_items": 114,
+    "n_items": 115,
     "n_municipalities": 3,
-    "n_validation_failures": 22,
+    "n_validation_failures": 21,
     "cost_usd": 0.0815
   },
   "scorecards": {

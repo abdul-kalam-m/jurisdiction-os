@@ -95,7 +95,7 @@
     "board": "Hoboken Planning Board",
     "case_ref": "HOP-26-3",
     "applicant_type": "corporation",
-    "project_desc": "Application for a minor site plan and expansion of a nonconforming structure for a restaurant, including the addition of a retractable roof system over the existing rooftop dining area.",
+    "project_desc": "Application for a minor site plan and expansion of a nonconforming structure for a restaurant, including a retractable roof enclosure for the rooftop dining area.",
     "use_type": "restaurant",
     "action": "approved",
     "variances_mentioned": [],
@@ -121,11 +121,12 @@
     "board": "Planning Board",
     "case_ref": null,
     "applicant_type": "corporation",
-    "project_desc": "Proposal for a seasonal structure on the existing rooftop dining area, characterized as a pergola with a retractable roof and deployable windows, to enhance outdoor dining experience during inclement weather.",
+    "project_desc": "Proposal for a seasonal structure on the existing rooftop dining area, including a retractable roof and deployable windows, to enhance outdoor dining experience during inclement weather.",
     "use_type": "restaurant",
     "action": "heard",
     "variances_mentioned": [
-      "lot coverage"
+      "lot coverage",
+      "nonconforming structure"
     ],
     "source_url": "https://hobokennj.iqm2.com/Citizens/FileOpen.aspx?Type=12&ID=2326",
     "confidence": 0.9,
@@ -136,7 +137,7 @@
     "board": "Planning Board",
     "case_ref": null,
     "applicant_type": "corporation",
-    "project_desc": "Proposed construction of a sound attenuated wall and green roof structure for a restaurant, including a retractable pergola.",
+    "project_desc": "Proposed construction of a sound attenuated wall and green roof structure to mitigate noise and visual impacts for a restaurant's rooftop area.",
     "use_type": "restaurant",
     "action": "heard",
     "variances_mentioned": [
@@ -243,7 +244,7 @@
     "applicant_type": "corporation",
     "project_desc": "Construction of a single-family dwelling to be used as a Community Residence for the Developmentally Disabled on a vacant lot.",
     "use_type": "single-family",
-    "action": "approved",
+    "action": "heard",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_06082026-1008",
     "confidence": 0.9,
@@ -259,7 +260,7 @@
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_06082026-1008",
-    "confidence": 0.9,
+    "confidence": 0.95,
     "municipality": "WESTFIELD"
   },
   {
@@ -272,7 +273,7 @@
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_06082026-1008",
-    "confidence": 0.9,
+    "confidence": 0.95,
     "municipality": "WESTFIELD"
   },
   {
@@ -291,7 +292,7 @@
   {
     "meeting_date": "2026-06-03",
     "board": "Board of Adjustment",
-    "case_ref": "App. 2956",
+    "case_ref": "2956",
     "applicant_type": "LLC",
     "project_desc": "Freestanding signs, canopy signs, and window signs.",
     "use_type": "retail",
@@ -304,7 +305,7 @@
   {
     "meeting_date": "2026-06-03",
     "board": "Board of Adjustment",
-    "case_ref": "App. 2962",
+    "case_ref": "2962",
     "applicant_type": "individual",
     "project_desc": "First and second floor additions.",
     "use_type": "single-family",
@@ -317,7 +318,7 @@
   {
     "meeting_date": "2026-06-03",
     "board": "Board of Adjustment",
-    "case_ref": "App. 2965",
+    "case_ref": "2965",
     "applicant_type": "individual",
     "project_desc": "Two story addition.",
     "use_type": "single-family",
@@ -330,7 +331,7 @@
   {
     "meeting_date": "2026-06-03",
     "board": "Board of Adjustment",
-    "case_ref": "App. 2969",
+    "case_ref": "2969",
     "applicant_type": "LLC",
     "project_desc": "Zone map interpretation for 260 Park Street parcel.",
     "use_type": "mixed-use",
@@ -343,7 +344,7 @@
   {
     "meeting_date": "2026-06-03",
     "board": "Board of Adjustment",
-    "case_ref": "App. 2968",
+    "case_ref": "2968",
     "applicant_type": "individual",
     "project_desc": "In-ground swimming pool, outdoor spa, fire pit, and patio.",
     "use_type": "single-family",
@@ -359,7 +360,7 @@
   {
     "meeting_date": "2026-06-03",
     "board": "Board of Adjustment",
-    "case_ref": "App. 2972",
+    "case_ref": "2972",
     "applicant_type": "individual",
     "project_desc": "Two-story rear addition and new roof and dormers.",
     "use_type": "single-family",
@@ -374,7 +375,7 @@
   {
     "meeting_date": "2026-06-03",
     "board": "Board of Adjustment",
-    "case_ref": "App. 2953",
+    "case_ref": "2953",
     "applicant_type": "individual",
     "project_desc": "In-ground pool and detached garage.",
     "use_type": "single-family",
@@ -495,50 +496,11 @@
     "case_ref": "ZBA 25-065",
     "applicant_type": "corporation",
     "project_desc": "Application for Second Westfield Senior Housing to be adjourned to a special meeting.",
-    "use_type": "senior housing",
+    "use_type": "multifamily",
     "action": "carried",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_05112026-1000",
     "confidence": 0.9,
-    "municipality": "WESTFIELD"
-  },
-  {
-    "meeting_date": "2026-05-11",
-    "board": "Board of Adjustment",
-    "case_ref": "ZBA 26-019",
-    "applicant_type": "individual",
-    "project_desc": "Request for a one-year extension to a previously memorialized resolution.",
-    "use_type": "residential",
-    "action": "approved",
-    "variances_mentioned": [],
-    "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_05112026-1000",
-    "confidence": 0.95,
-    "municipality": "WESTFIELD"
-  },
-  {
-    "meeting_date": "2026-05-11",
-    "board": "Board of Adjustment",
-    "case_ref": "ZBA 26-023",
-    "applicant_type": "individual",
-    "project_desc": "Request for a one-year extension to a previously memorialized resolution.",
-    "use_type": "residential",
-    "action": "approved",
-    "variances_mentioned": [],
-    "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_05112026-1000",
-    "confidence": 0.95,
-    "municipality": "WESTFIELD"
-  },
-  {
-    "meeting_date": "2026-05-11",
-    "board": "Board of Adjustment",
-    "case_ref": "ZBA 26-024",
-    "applicant_type": "corporation",
-    "project_desc": "Request for a one-year extension to a previously memorialized resolution.",
-    "use_type": "educational",
-    "action": "approved",
-    "variances_mentioned": [],
-    "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_05112026-1000",
-    "confidence": 0.95,
     "municipality": "WESTFIELD"
   },
   {
@@ -551,7 +513,7 @@
     "action": "carried",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_05112026-1000",
-    "confidence": 0.9,
+    "confidence": 0.85,
     "municipality": "WESTFIELD"
   },
   {
@@ -564,7 +526,7 @@
     "action": "carried",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_05112026-1000",
-    "confidence": 0.9,
+    "confidence": 0.85,
     "municipality": "WESTFIELD"
   },
   {
@@ -577,7 +539,7 @@
     "action": "carried",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_05112026-1000",
-    "confidence": 0.9,
+    "confidence": 0.85,
     "municipality": "WESTFIELD"
   },
   {
@@ -612,7 +574,7 @@
     "case_ref": "App. 2955",
     "applicant_type": "corporation",
     "project_desc": "Expanding non-conforming use by adding rear screened patio.",
-    "use_type": "multifamily",
+    "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753258773.pdf",
@@ -645,7 +607,7 @@
       "impervious coverage"
     ],
     "source_url": "https://ecode360.com/MO0769/document/753258773.pdf",
-    "confidence": 1.0,
+    "confidence": 0.9,
     "municipality": "MONTCLAIR"
   },
   {
@@ -668,12 +630,64 @@
     "board": "Board of Adjustment",
     "case_ref": "ZBA 25-046",
     "applicant_type": "corporation",
-    "project_desc": "Variance relief to construct a single-family dwelling, which will be used as a Community Residence for the Developmentally Disabled, on a vacant lot.",
+    "project_desc": "Construction of a single-family dwelling to be used as a Community Residence for the Developmentally Disabled on a vacant lot.",
     "use_type": "single-family",
-    "action": "heard",
+    "action": "carried",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04132026-991",
     "confidence": 0.9,
+    "municipality": "WESTFIELD"
+  },
+  {
+    "meeting_date": "2026-04-13",
+    "board": "Board of Adjustment",
+    "case_ref": "ZBA 25-048",
+    "applicant_type": "individual",
+    "project_desc": "Variance relief to allow for a retaining wall which was previously installed.",
+    "use_type": "residential",
+    "action": "approved",
+    "variances_mentioned": [],
+    "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04132026-991",
+    "confidence": 0.95,
+    "municipality": "WESTFIELD"
+  },
+  {
+    "meeting_date": "2026-04-13",
+    "board": "Board of Adjustment",
+    "case_ref": "ZBA 25-057",
+    "applicant_type": "individual",
+    "project_desc": "Construction of a rear porch, extending existing walkway, and relocating basement door access.",
+    "use_type": "residential",
+    "action": "approved",
+    "variances_mentioned": [],
+    "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04132026-991",
+    "confidence": 0.95,
+    "municipality": "WESTFIELD"
+  },
+  {
+    "meeting_date": "2026-04-13",
+    "board": "Board of Adjustment",
+    "case_ref": "ZBA 25-061",
+    "applicant_type": "individual",
+    "project_desc": "Construction of a second-story addition to the rear of an existing dwelling.",
+    "use_type": "residential",
+    "action": "approved",
+    "variances_mentioned": [],
+    "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04132026-991",
+    "confidence": 0.95,
+    "municipality": "WESTFIELD"
+  },
+  {
+    "meeting_date": "2026-04-13",
+    "board": "Board of Adjustment",
+    "case_ref": "ZBA 25-062",
+    "applicant_type": "individual",
+    "project_desc": "Demolition of an existing deck and construction of a two-story addition to the rear of an existing dwelling.",
+    "use_type": "residential",
+    "action": "approved",
+    "variances_mentioned": [],
+    "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04132026-991",
+    "confidence": 0.95,
     "municipality": "WESTFIELD"
   },
   {
@@ -686,7 +700,7 @@
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04062026-988",
-    "confidence": 1.0,
+    "confidence": 0.9,
     "municipality": "WESTFIELD"
   },
   {
@@ -694,13 +708,29 @@
     "board": "Planning Board",
     "case_ref": "PB 25-005",
     "applicant_type": "individual",
-    "project_desc": "Lot line adjustment to move the lot line over for a property that is currently fenced off and not used by the owners.",
+    "project_desc": "Lot line adjustment to move the lot line over for a property that is fenced off and buffered, consolidating it with an adjacent property.",
     "use_type": "residential",
     "action": "heard",
     "variances_mentioned": [
+      "maximum building coverage with a deck",
       "maximum building coverage",
-      "maximum all improvements coverage",
-      "side yard setback"
+      "maximum all improvements"
+    ],
+    "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04062026-988",
+    "confidence": 0.85,
+    "municipality": "WESTFIELD"
+  },
+  {
+    "meeting_date": "2026-04-06",
+    "board": "Planning Board",
+    "case_ref": "PB 26-001",
+    "applicant_type": "LLC",
+    "project_desc": "Modification of a condition of approval from 2013 and bulk C variances for signage for tenants on the first floor of a mixed-use building located in the Central Business Zone.",
+    "use_type": "mixed-use",
+    "action": "approved",
+    "variances_mentioned": [
+      "bulk C variances for signage",
+      "removal of medical use condition"
     ],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04062026-988",
     "confidence": 0.9,
@@ -709,14 +739,14 @@
   {
     "meeting_date": "2026-04-06",
     "board": "Planning Board",
-    "case_ref": "PB 26-001",
-    "applicant_type": "LLC",
-    "project_desc": "Lot line adjustment application to merge a .414-acre portion of Lot 40.01 with existing Lot 40.01 to create a new lot.",
-    "use_type": "mixed-use",
-    "action": "approved",
+    "case_ref": null,
+    "applicant_type": "individual",
+    "project_desc": "Proposed wellness spa offering services such as cryotherapy, infrared sauna, and IV hydration, seeking to occupy a tenant space categorized as medical use.",
+    "use_type": "wellness spa",
+    "action": "heard",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_04062026-988",
-    "confidence": 1.0,
+    "confidence": 0.8,
     "municipality": "WESTFIELD"
   },
   {
@@ -724,7 +754,7 @@
     "board": "Planning Board",
     "case_ref": null,
     "applicant_type": "corporation",
-    "project_desc": "Signage variances for multiple tenants including Pure Barre, Stone and Birch, and Outrun Your Fork, with signs proposed above windows instead of doors.",
+    "project_desc": "Signage variances for multiple tenants including Pure Barre, Stone and Birch, and Outrun Your Fork, with signs proposed above windows instead of front doors.",
     "use_type": "retail",
     "action": "approved",
     "variances_mentioned": [
@@ -754,7 +784,7 @@
     "board": "Planning Board",
     "case_ref": null,
     "applicant_type": "corporation",
-    "project_desc": "Withdrawal of the signage variance for the rear door of Degree Wellness.",
+    "project_desc": "Withdrawal of the signage variance for the rear door for Degree Wellness.",
     "use_type": "medical",
     "action": "withdrawn",
     "variances_mentioned": [],
@@ -765,7 +795,7 @@
   {
     "meeting_date": "2026-03-25",
     "board": "Board of Adjustment",
-    "case_ref": "2932",
+    "case_ref": "App. 2932",
     "applicant_type": "individual",
     "project_desc": "Converting auto bays to convenience store.",
     "use_type": "retail",
@@ -778,7 +808,7 @@
   {
     "meeting_date": "2026-03-25",
     "board": "Board of Adjustment",
-    "case_ref": "2949",
+    "case_ref": "App. 2949",
     "applicant_type": "individual",
     "project_desc": "Installing an in-ground pool in the rear yard.",
     "use_type": "residential",
@@ -793,9 +823,9 @@
   {
     "meeting_date": "2026-03-25",
     "board": "Board of Adjustment",
-    "case_ref": "2955",
+    "case_ref": "App. 2955",
     "applicant_type": "corporation",
-    "project_desc": "Expanding non-conforming use with a rear screened patio.",
+    "project_desc": "Expanding non-conforming use with rear screened patio.",
     "use_type": "multifamily",
     "action": "approved",
     "variances_mentioned": [],
@@ -806,10 +836,10 @@
   {
     "meeting_date": "2026-03-25",
     "board": "Board of Adjustment",
-    "case_ref": "2957",
+    "case_ref": "App. 2957",
     "applicant_type": "individual",
     "project_desc": "Building a detached accessory dwelling unit for aging parents.",
-    "use_type": "single-family",
+    "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753250824.pdf",
@@ -819,13 +849,13 @@
   {
     "meeting_date": "2026-03-25",
     "board": "Board of Adjustment",
-    "case_ref": "2958",
+    "case_ref": "App. 2958",
     "applicant_type": "individual",
     "project_desc": "Adding side and rear additions to an existing home.",
     "use_type": "single-family",
     "action": "carried",
     "variances_mentioned": [
-      "side yard setback",
+      "setback",
       "impervious coverage"
     ],
     "source_url": "https://ecode360.com/MO0769/document/753250824.pdf",
@@ -863,7 +893,7 @@
     "board": "Board of Adjustment",
     "case_ref": "ZBA 25-056",
     "applicant_type": "individual",
-    "project_desc": "Variance relief to install a generator on the side of their dwelling.",
+    "project_desc": "Variance relief to install a generator on the side of the dwelling.",
     "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
@@ -876,7 +906,7 @@
     "board": "Board of Adjustment",
     "case_ref": "ZBA 25-045",
     "applicant_type": "individual",
-    "project_desc": "Variance relief to construct a first- and second-floor addition to their existing dwelling.",
+    "project_desc": "Variance relief to construct a first- and second-floor addition to the existing dwelling.",
     "use_type": "single-family",
     "action": "approved",
     "variances_mentioned": [],
@@ -889,7 +919,7 @@
     "board": "Board of Adjustment",
     "case_ref": "ZBA 25-046",
     "applicant_type": "corporation",
-    "project_desc": "Variance relief to construct a single-family dwelling, which will be used as a Community Residence for the Developmentally Disabled, on a vacant lot.",
+    "project_desc": "Variance relief to construct a single-family dwelling to be used as a Community Residence for the Developmentally Disabled on a vacant lot.",
     "use_type": "single-family",
     "action": "carried",
     "variances_mentioned": [],
@@ -1010,12 +1040,12 @@
     "board": "Board of Adjustment",
     "case_ref": "ZBA 25-050",
     "applicant_type": "individual",
-    "project_desc": "Application for variance relief to allow for the construction of an outdoor kitchen.",
+    "project_desc": "Construction of an outdoor kitchen to the street side yard of an existing dwelling.",
     "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_02092026-973",
-    "confidence": 0.95,
+    "confidence": 1.0,
     "municipality": "WESTFIELD"
   },
   {
@@ -1023,12 +1053,12 @@
     "board": "Board of Adjustment",
     "case_ref": "ZBA 25-051",
     "applicant_type": "individual",
-    "project_desc": "Application for variance relief to allow for the construction of a front porch and a second-story addition over an existing garage.",
+    "project_desc": "Construction of a front porch and a second-story addition over an existing garage.",
     "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_02092026-973",
-    "confidence": 0.95,
+    "confidence": 1.0,
     "municipality": "WESTFIELD"
   },
   {
@@ -1036,12 +1066,12 @@
     "board": "Board of Adjustment",
     "case_ref": "ZBA 25-052",
     "applicant_type": "individual",
-    "project_desc": "Application for variance relief to allow for the demolition and reconstruction of a detached two-car garage.",
+    "project_desc": "Demolition and reconstruction of a detached two-car garage on a thru lot.",
     "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_02092026-973",
-    "confidence": 0.95,
+    "confidence": 1.0,
     "municipality": "WESTFIELD"
   },
   {
@@ -1049,12 +1079,12 @@
     "board": "Board of Adjustment",
     "case_ref": "ZBA 25-053",
     "applicant_type": "individual",
-    "project_desc": "Application for variance relief to install an in-ground swimming pool.",
+    "project_desc": "Installation of an in-ground swimming pool.",
     "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_02092026-973",
-    "confidence": 0.95,
+    "confidence": 1.0,
     "municipality": "WESTFIELD"
   },
   {
@@ -1154,7 +1184,7 @@
     "case_ref": "2912",
     "applicant_type": "individual",
     "project_desc": "Bulk variances to replace existing nonconforming garage.",
-    "use_type": "single-family",
+    "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753228047.pdf",
@@ -1168,7 +1198,7 @@
     "applicant_type": "individual",
     "project_desc": "Variance relief to construct a patio with grill & fire pit, pergola, shed, and paver walk to the front, side, and rear of the existing dwelling.",
     "use_type": "residential",
-    "action": "carried",
+    "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_01122026-966",
     "confidence": 0.9,
@@ -1197,7 +1227,7 @@
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_01122026-966",
-    "confidence": 0.95,
+    "confidence": 0.9,
     "municipality": "WESTFIELD"
   },
   {
@@ -1210,7 +1240,7 @@
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://westfieldnj.gov/AgendaCenter/ViewFile/Minutes/_01122026-966",
-    "confidence": 0.95,
+    "confidence": 0.9,
     "municipality": "WESTFIELD"
   },
   {
@@ -1374,7 +1404,9 @@
     "project_desc": "Second story addition.",
     "use_type": "residential",
     "action": "approved",
-    "variances_mentioned": [],
+    "variances_mentioned": [
+      "rear yard setback"
+    ],
     "source_url": "https://ecode360.com/MO0769/document/753201893.pdf",
     "confidence": 1.0,
     "municipality": "MONTCLAIR"
@@ -1402,33 +1434,18 @@
   {
     "meeting_date": "2025-09-17",
     "board": "Board of Adjustment",
-    "case_ref": "App. 2939",
-    "applicant_type": "individual",
-    "project_desc": "Generator in front yard at corner lot.",
-    "use_type": "residential",
-    "action": "approved",
-    "variances_mentioned": [],
-    "source_url": "https://ecode360.com/MO0769/document/753197144.pdf",
-    "confidence": 1.0,
-    "municipality": "MONTCLAIR"
-  },
-  {
-    "meeting_date": "2025-09-17",
-    "board": "Board of Adjustment",
     "case_ref": "App. 2934",
     "applicant_type": "individual",
-    "project_desc": "ADU, expanded garage, and deck at an existing residential property.",
+    "project_desc": "Alterations to the existing residential property at 292 Orange Road, comprising Lots 26 and 27, which will be merged into a single 18,364-square-foot lot. The application includes expanding the garage, adding a deck on the south side of the house, and constructing an accessory dwelling unit (ADU) at the rear southwest corner.",
     "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [
       "bulk variances for the garage",
       "use variance for the expansion of the nonconforming two-family use",
-      "side yard variance",
-      "rear yard variance",
-      "width variance"
+      "variances for the side yard, rear yard, and width"
     ],
     "source_url": "https://ecode360.com/MO0769/document/753197144.pdf",
-    "confidence": 1.0,
+    "confidence": 0.9,
     "municipality": "MONTCLAIR"
   },
   {
@@ -1436,12 +1453,12 @@
     "board": "Board of Adjustment",
     "case_ref": "App. 2938",
     "applicant_type": "individual",
-    "project_desc": "Rear dormer addition to improve living space in the existing dwelling.",
+    "project_desc": "Construction of shed dormers at the rear of the dwelling at 7 Columbus Avenue. The proposed work involves raising the rear of the building to achieve approximately six feet of clearance at the back wall, extending across the full width of the house.",
     "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753197144.pdf",
-    "confidence": 1.0,
+    "confidence": 0.95,
     "municipality": "MONTCLAIR"
   },
   {
@@ -1449,12 +1466,12 @@
     "board": "Board of Adjustment",
     "case_ref": "App. 2942",
     "applicant_type": "individual",
-    "project_desc": "Rear addition to enlarge the kitchen and improve functionality.",
+    "project_desc": "Plans for a rear addition at 9 Cloverhill Place, which involves demolishing the existing one-story rear bump-out and deck and replacing it with a slightly larger addition and a smaller deck to enlarge the kitchen.",
     "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753197144.pdf",
-    "confidence": 1.0,
+    "confidence": 0.95,
     "municipality": "MONTCLAIR"
   },
   {
@@ -1463,7 +1480,7 @@
     "case_ref": "App. 2935",
     "applicant_type": "individual",
     "project_desc": "Fence along Bellevue Avenue measuring 6 feet in height.",
-    "use_type": "fence",
+    "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753190446.pdf",
@@ -1476,7 +1493,7 @@
     "case_ref": "App. 2936",
     "applicant_type": "individual",
     "project_desc": "One story addition to connect garage to dwelling.",
-    "use_type": "single-family",
+    "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753190446.pdf",
@@ -1489,7 +1506,7 @@
     "case_ref": "App. 2939",
     "applicant_type": "individual",
     "project_desc": "Installation of a gas-powered whole-house backup generator in the front yard at a corner lot.",
-    "use_type": "generator",
+    "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753190446.pdf",
@@ -1501,7 +1518,7 @@
     "board": "Board of Adjustment",
     "case_ref": "App. 2937",
     "applicant_type": "individual",
-    "project_desc": "Tennis court addition in rear yard.",
+    "project_desc": "Construction of a tennis court addition in the rear yard.",
     "use_type": "recreational",
     "action": "heard",
     "variances_mentioned": [
@@ -1517,7 +1534,7 @@
     "case_ref": "App. 2929",
     "applicant_type": "corporation",
     "project_desc": "Post-mounted historic marker sign.",
-    "use_type": "signage",
+    "use_type": "retail",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753181830.pdf",
@@ -1530,7 +1547,7 @@
     "case_ref": "App. 2930",
     "applicant_type": "individual",
     "project_desc": "Partial second-story addition.",
-    "use_type": "residential",
+    "use_type": "single-family",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753181830.pdf",
@@ -1543,7 +1560,7 @@
     "case_ref": "App. 2935",
     "applicant_type": "individual",
     "project_desc": "Fence along Bellevue Avenue measuring 6 feet in height.",
-    "use_type": "fence",
+    "use_type": "residential",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753181830.pdf",
@@ -1556,7 +1573,7 @@
     "case_ref": "App. 2936",
     "applicant_type": "individual",
     "project_desc": "One story addition to connect garage to dwelling.",
-    "use_type": "residential",
+    "use_type": "single-family",
     "action": "approved",
     "variances_mentioned": [],
     "source_url": "https://ecode360.com/MO0769/document/753181830.pdf",
