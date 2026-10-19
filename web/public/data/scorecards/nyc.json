@@ -1,57 +1,57 @@
 {
   "city": "NYC",
-  "total_permits_in_window": 653464,
-  "overall_exclusion_rate": 0.101,
+  "total_permits_in_window": 653216,
+  "overall_exclusion_rate": 0.1011,
   "data_quality_flag": false,
   "classes": {
     "new-construction-res": {
       "coverage": "ok",
-      "n_permits": 66661,
-      "median_days": 185,
+      "n_permits": 66964,
+      "median_days": 186.0,
       "p25_days": 42,
       "p75_days": 455,
       "annual_volume": {
-        "2022": 2015,
-        "2023": 13226,
-        "2024": 16376,
-        "2025": 17414,
-        "2026": 17630
+        "2022": 1870,
+        "2023": 13218,
+        "2024": 16355,
+        "2025": 17352,
+        "2026": 18169
       },
-      "trend_slope_per_year": 3541.8,
+      "trend_slope_per_year": 3673.2,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "new-construction-com": {
       "coverage": "ok",
-      "n_permits": 10981,
+      "n_permits": 10997,
       "median_days": 281,
       "p25_days": 79,
-      "p75_days": 553,
+      "p75_days": 555,
       "annual_volume": {
-        "2022": 360,
-        "2023": 2180,
-        "2024": 3008,
-        "2025": 2978,
-        "2026": 2455
+        "2022": 322,
+        "2023": 2179,
+        "2024": 3010,
+        "2025": 2967,
+        "2026": 2519
       },
-      "trend_slope_per_year": 498.8,
+      "trend_slope_per_year": 518.2,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-major": {
       "coverage": "ok",
-      "n_permits": 502398,
+      "n_permits": 501818,
       "median_days": 87.0,
       "p25_days": 12,
       "p75_days": 405,
       "annual_volume": {
-        "2022": 25385,
-        "2023": 120848,
-        "2024": 125274,
-        "2025": 127869,
-        "2026": 103022
+        "2022": 22727,
+        "2023": 120851,
+        "2024": 125247,
+        "2025": 127763,
+        "2026": 105230
       },
-      "trend_slope_per_year": 16229.5,
+      "trend_slope_per_year": 17191.8,
       "n_years": 5,
       "confidence_tier": "B"
     },

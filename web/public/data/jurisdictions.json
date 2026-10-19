@@ -3,8 +3,8 @@
   "jurisdictions": {
     "nyc": {
       "city": "NYC",
-      "total_permits_in_window": 653464,
-      "overall_exclusion_rate": 0.101,
+      "total_permits_in_window": 653216,
+      "overall_exclusion_rate": 0.1011,
       "data_quality_flag": false,
       "best_confidence_tier": "B",
       "classes_with_data": [
@@ -15,8 +15,8 @@
     },
     "chicago": {
       "city": "CHICAGO",
-      "total_permits_in_window": 132110,
-      "overall_exclusion_rate": 0.3496,
+      "total_permits_in_window": 131951,
+      "overall_exclusion_rate": 0.3473,
       "data_quality_flag": true,
       "best_confidence_tier": "B",
       "classes_with_data": [
@@ -28,8 +28,8 @@
     },
     "austin": {
       "city": "AUSTIN",
-      "total_permits_in_window": 47467,
-      "overall_exclusion_rate": 0.084,
+      "total_permits_in_window": 47468,
+      "overall_exclusion_rate": 0.0841,
       "data_quality_flag": false,
       "best_confidence_tier": "B",
       "classes_with_data": [
@@ -43,8 +43,8 @@
     },
     "san-francisco": {
       "city": "SAN FRANCISCO",
-      "total_permits_in_window": 94742,
-      "overall_exclusion_rate": 0.5475,
+      "total_permits_in_window": 94553,
+      "overall_exclusion_rate": 0.5472,
       "data_quality_flag": true,
       "best_confidence_tier": "B",
       "classes_with_data": [
@@ -58,8 +58,8 @@
     },
     "seattle": {
       "city": "SEATTLE",
-      "total_permits_in_window": 24268,
-      "overall_exclusion_rate": 0.1435,
+      "total_permits_in_window": 24291,
+      "overall_exclusion_rate": 0.1436,
       "data_quality_flag": false,
       "best_confidence_tier": "B",
       "classes_with_data": [
@@ -72,8 +72,8 @@
     },
     "los-angeles": {
       "city": "LOS ANGELES",
-      "total_permits_in_window": 255689,
-      "overall_exclusion_rate": 0.4937,
+      "total_permits_in_window": 254386,
+      "overall_exclusion_rate": 0.4939,
       "data_quality_flag": true,
       "best_confidence_tier": "B",
       "classes_with_data": [
