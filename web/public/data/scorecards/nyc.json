@@ -1,57 +1,57 @@
 {
   "city": "NYC",
-  "total_permits_in_window": 653216,
-  "overall_exclusion_rate": 0.1011,
+  "total_permits_in_window": 653768,
+  "overall_exclusion_rate": 0.1012,
   "data_quality_flag": false,
   "classes": {
     "new-construction-res": {
       "coverage": "ok",
-      "n_permits": 66964,
+      "n_permits": 67156,
       "median_days": 186.0,
       "p25_days": 42,
       "p75_days": 455,
       "annual_volume": {
-        "2022": 1870,
-        "2023": 13218,
+        "2022": 1638,
+        "2023": 13205,
         "2024": 16355,
-        "2025": 17352,
-        "2026": 18169
+        "2025": 17355,
+        "2026": 18603
       },
-      "trend_slope_per_year": 3673.2,
+      "trend_slope_per_year": 3808.0,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "new-construction-com": {
       "coverage": "ok",
-      "n_permits": 10997,
-      "median_days": 281,
-      "p25_days": 79,
-      "p75_days": 555,
+      "n_permits": 11013,
+      "median_days": 283,
+      "p25_days": 80,
+      "p75_days": 560,
       "annual_volume": {
-        "2022": 322,
-        "2023": 2179,
-        "2024": 3010,
-        "2025": 2967,
-        "2026": 2519
+        "2022": 290,
+        "2023": 2176,
+        "2024": 3011,
+        "2025": 2971,
+        "2026": 2565
       },
-      "trend_slope_per_year": 518.2,
+      "trend_slope_per_year": 534.5,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-major": {
       "coverage": "ok",
-      "n_permits": 501818,
-      "median_days": 87.0,
+      "n_permits": 501975,
+      "median_days": 88,
       "p25_days": 12,
-      "p75_days": 405,
+      "p75_days": 406,
       "annual_volume": {
-        "2022": 22727,
-        "2023": 120851,
-        "2024": 125247,
-        "2025": 127763,
-        "2026": 105230
+        "2022": 20159,
+        "2023": 120839,
+        "2024": 125248,
+        "2025": 127744,
+        "2026": 107985
       },
-      "trend_slope_per_year": 17191.8,
+      "trend_slope_per_year": 18255.7,
       "n_years": 5,
       "confidence_tier": "B"
     },
