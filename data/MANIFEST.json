@@ -1,38 +1,38 @@
 {
   "permits_seattle": {
     "source_url": "https://data.seattle.gov/resource/76t5-zqzr.json",
-    "retrieved_utc": "2026-10-26T15:53:44.058321+00:00",
+    "retrieved_utc": "2026-11-02T19:11:04.371012+00:00",
     "license_note": "Public open-data portal, city government",
-    "row_count": 24304
+    "row_count": 24309
   },
   "permits_nyc": {
     "source_url": "https://data.cityofnewyork.us/resource/rbx6-tga4.json",
-    "retrieved_utc": "2026-10-26T15:52:15.865762+00:00",
+    "retrieved_utc": "2026-11-02T19:10:17.208110+00:00",
     "license_note": "Public open-data portal, city government",
-    "row_count": 653768
+    "row_count": 654519
   },
   "permits_chicago": {
     "source_url": "https://data.cityofchicago.org/resource/ydr8-5enu.json",
-    "retrieved_utc": "2026-10-26T15:53:07.549325+00:00",
+    "retrieved_utc": "2026-11-02T19:10:50.721716+00:00",
     "license_note": "Public open-data portal, city government",
-    "row_count": 131828
+    "row_count": 131670
   },
   "permits_austin": {
     "source_url": "https://data.austintexas.gov/resource/3syk-w9eu.json",
-    "retrieved_utc": "2026-10-26T15:53:14.883296+00:00",
+    "retrieved_utc": "2026-11-02T19:10:53.177429+00:00",
     "license_note": "Public open-data portal, city government",
-    "row_count": 47480
+    "row_count": 47507
   },
   "permits_san_francisco": {
     "source_url": "https://data.sfgov.org/resource/i98e-djp9.json",
-    "retrieved_utc": "2026-10-26T15:53:39.507305+00:00",
+    "retrieved_utc": "2026-11-02T19:11:02.220219+00:00",
     "license_note": "Public open-data portal, city government",
-    "row_count": 94344
+    "row_count": 94171
   },
   "permits_los_angeles": {
     "source_url": "https://data.lacity.org/resource/pi9x-tg5x.json",
-    "retrieved_utc": "2026-10-26T15:54:49.348088+00:00",
+    "retrieved_utc": "2026-11-02T19:11:35.504256+00:00",
     "license_note": "Public open-data portal, city government",
-    "row_count": 255912
+    "row_count": 256143
   }
 }
