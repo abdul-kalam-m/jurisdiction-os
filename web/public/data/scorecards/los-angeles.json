@@ -1,108 +1,108 @@
 {
   "city": "LOS ANGELES",
-  "total_permits_in_window": 256143,
-  "overall_exclusion_rate": 0.495,
+  "total_permits_in_window": 256276,
+  "overall_exclusion_rate": 0.4956,
   "data_quality_flag": true,
   "classes": {
     "new-construction-res": {
       "coverage": "ok",
-      "n_permits": 13528,
-      "median_days": 219.0,
+      "n_permits": 13530,
+      "median_days": 218.0,
       "p25_days": 121,
       "p75_days": 454,
       "annual_volume": {
-        "2022": 512,
+        "2022": 457,
         "2023": 3086,
         "2024": 2957,
         "2025": 3636,
-        "2026": 3337
+        "2026": 3394
       },
-      "trend_slope_per_year": 620.0,
+      "trend_slope_per_year": 642.4,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "new-construction-com": {
       "coverage": "ok",
-      "n_permits": 2609,
-      "median_days": 191,
-      "p25_days": 95,
-      "p75_days": 421,
+      "n_permits": 2589,
+      "median_days": 189,
+      "p25_days": 94,
+      "p75_days": 423,
       "annual_volume": {
-        "2022": 148,
+        "2022": 115,
         "2023": 613,
         "2024": 618,
         "2025": 701,
-        "2026": 529
+        "2026": 542
       },
-      "trend_slope_per_year": 85.0,
+      "trend_slope_per_year": 94.2,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-major": {
       "coverage": "ok",
-      "n_permits": 76371,
+      "n_permits": 76311,
       "median_days": 74,
-      "p25_days": 27,
-      "p75_days": 177,
+      "p25_days": 26,
+      "p75_days": 176,
       "annual_volume": {
-        "2022": 3014,
+        "2022": 2598,
         "2023": 19168,
         "2024": 19402,
         "2025": 19104,
-        "2026": 15683
+        "2026": 16039
       },
-      "trend_slope_per_year": 2527.4,
+      "trend_slope_per_year": 2681.8,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-minor": {
       "coverage": "ok",
-      "n_permits": 1295,
-      "median_days": 88,
-      "p25_days": 33,
+      "n_permits": 1293,
+      "median_days": 87,
+      "p25_days": 32,
       "p75_days": 215,
       "annual_volume": {
-        "2022": 60,
+        "2022": 52,
         "2023": 294,
         "2024": 319,
         "2025": 337,
-        "2026": 285
+        "2026": 291
       },
-      "trend_slope_per_year": 49.3,
+      "trend_slope_per_year": 52.1,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "demolition": {
       "coverage": "ok",
-      "n_permits": 6631,
-      "median_days": 106,
+      "n_permits": 6613,
+      "median_days": 107,
       "p25_days": 45,
-      "p75_days": 264,
+      "p75_days": 265,
       "annual_volume": {
-        "2022": 298,
+        "2022": 252,
         "2023": 1697,
         "2024": 1674,
         "2025": 1745,
-        "2026": 1217
+        "2026": 1245
       },
-      "trend_slope_per_year": 188.6,
+      "trend_slope_per_year": 203.4,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "site/civil": {
       "coverage": "ok",
-      "n_permits": 28869,
-      "median_days": 97,
+      "n_permits": 28868,
+      "median_days": 97.0,
       "p25_days": 35,
       "p75_days": 239,
       "annual_volume": {
-        "2022": 1158,
+        "2022": 997,
         "2023": 6987,
         "2024": 6587,
         "2025": 7418,
-        "2026": 6719
+        "2026": 6879
       },
-      "trend_slope_per_year": 1155.3,
+      "trend_slope_per_year": 1219.5,
       "n_years": 5,
       "confidence_tier": "B"
     }

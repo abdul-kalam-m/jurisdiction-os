@@ -1,7 +1,7 @@
 {
   "city": "SAN FRANCISCO",
-  "total_permits_in_window": 94171,
-  "overall_exclusion_rate": 0.5465,
+  "total_permits_in_window": 94086,
+  "overall_exclusion_rate": 0.5462,
   "data_quality_flag": true,
   "classes": {
     "new-construction-res": {
@@ -11,13 +11,13 @@
       "p25_days": 275,
       "p75_days": 976,
       "annual_volume": {
-        "2022": 11,
+        "2022": 10,
         "2023": 57,
         "2024": 66,
         "2025": 42,
-        "2026": 47
+        "2026": 48
       },
-      "trend_slope_per_year": 5.7,
+      "trend_slope_per_year": 6.1,
       "n_years": 5,
       "confidence_tier": "C"
     },
@@ -43,66 +43,66 @@
       "n_permits": 5149,
       "median_days": 244,
       "p25_days": 122,
-      "p75_days": 516,
+      "p75_days": 514,
       "annual_volume": {
-        "2022": 208,
+        "2022": 184,
         "2023": 1389,
         "2024": 1419,
         "2025": 1141,
-        "2026": 992
+        "2026": 1016
       },
-      "trend_slope_per_year": 132.0,
+      "trend_slope_per_year": 141.6,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-minor": {
       "coverage": "ok",
-      "n_permits": 35370,
-      "median_days": 16.0,
+      "n_permits": 35373,
+      "median_days": 16,
       "p25_days": 5,
       "p75_days": 51,
       "annual_volume": {
-        "2022": 1273,
+        "2022": 1097,
         "2023": 9339,
         "2024": 8520,
         "2025": 8907,
-        "2026": 7331
+        "2026": 7510
       },
-      "trend_slope_per_year": 1168.4,
+      "trend_slope_per_year": 1239.4,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "demolition": {
       "coverage": "ok",
-      "n_permits": 181,
-      "median_days": 236,
+      "n_permits": 180,
+      "median_days": 234.0,
       "p25_days": 61,
-      "p75_days": 811,
+      "p75_days": 819,
       "annual_volume": {
-        "2022": 10,
+        "2022": 9,
         "2023": 54,
         "2024": 27,
         "2025": 42,
         "2026": 48
       },
-      "trend_slope_per_year": 6.4,
+      "trend_slope_per_year": 6.6,
       "n_years": 5,
       "confidence_tier": "C"
     },
     "site/civil": {
       "coverage": "ok",
-      "n_permits": 1301,
-      "median_days": 23,
+      "n_permits": 1291,
+      "median_days": 24,
       "p25_days": 9,
       "p75_days": 63,
       "annual_volume": {
-        "2022": 50,
+        "2022": 40,
         "2023": 244,
         "2024": 436,
         "2025": 383,
         "2026": 188
       },
-      "trend_slope_per_year": 41.5,
+      "trend_slope_per_year": 43.5,
       "n_years": 5,
       "confidence_tier": "B"
     }

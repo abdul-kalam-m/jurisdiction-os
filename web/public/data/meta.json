@@ -9,7 +9,7 @@
     "cost_usd": 0.0816
   },
   "scorecards": {
-    "updated_utc": "2026-11-02T19:11:36.517430+00:00",
+    "updated_utc": "2026-11-09T19:30:37.921807+00:00",
     "n_jurisdictions": 6,
     "classes_tracked": [
       "new-construction-res",
@@ -21,7 +21,7 @@
     ]
   },
   "delay_alerts": {
-    "updated_utc": "2026-11-02T19:11:41.999965+00:00",
+    "updated_utc": "2026-11-09T19:30:43.315174+00:00",
     "rule": {
       "window_90d_days": 90,
       "baseline_total_days": 365,
@@ -30,15 +30,15 @@
       "live_rule_cadence": "weekly (refresh.yml)",
       "backtest_sample_step_days": 14
     },
-    "total_backtest_points": 2365,
+    "total_backtest_points": 2367,
     "currently_alerting_count": 2,
-    "artifact_size_kb": 243.5
+    "artifact_size_kb": 243.7
   },
   "permit_etl": {
-    "updated_utc": "2026-11-02T19:11:35.505786+00:00",
+    "updated_utc": "2026-11-09T19:30:36.921771+00:00",
     "lookback_years": 4,
-    "cutoff_date": "2022-11-03T00:00:00",
-    "n_permits_total": 1208319,
+    "cutoff_date": "2022-11-10T00:00:00",
+    "n_permits_total": 1208823,
     "cities_refreshed_this_run": [
       "NYC",
       "CHICAGO",
