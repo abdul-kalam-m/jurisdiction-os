@@ -1,7 +1,7 @@
 {
   "city": "CHICAGO",
-  "total_permits_in_window": 131696,
-  "overall_exclusion_rate": 0.3421,
+  "total_permits_in_window": 131442,
+  "overall_exclusion_rate": 0.3408,
   "data_quality_flag": true,
   "classes": {
     "new-construction-res": {
@@ -12,69 +12,69 @@
     },
     "alteration-major": {
       "coverage": "ok",
-      "n_permits": 21567,
+      "n_permits": 21525,
       "median_days": 52,
       "p25_days": 19,
       "p75_days": 112,
       "annual_volume": {
-        "2022": 541,
+        "2022": 434,
         "2023": 4670,
-        "2024": 6200,
+        "2024": 6164,
         "2025": 5487,
-        "2026": 4669
+        "2026": 4770
       },
-      "trend_slope_per_year": 907.3,
+      "trend_slope_per_year": 948.9,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "alteration-minor": {
       "coverage": "ok",
-      "n_permits": 50175,
-      "median_days": 7,
+      "n_permits": 50258,
+      "median_days": 7.0,
       "p25_days": 2,
       "p75_days": 15,
       "annual_volume": {
-        "2022": 835,
+        "2022": 672,
         "2023": 8410,
-        "2024": 13467,
+        "2024": 13504,
         "2025": 14664,
-        "2026": 12799
+        "2026": 13008
       },
-      "trend_slope_per_year": 3018.2,
+      "trend_slope_per_year": 3092.6,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "demolition": {
       "coverage": "ok",
-      "n_permits": 635,
-      "median_days": 68,
+      "n_permits": 648,
+      "median_days": 68.0,
       "p25_days": 46,
       "p75_days": 104,
       "annual_volume": {
-        "2022": 9,
+        "2022": 8,
         "2023": 62,
         "2024": 63,
         "2025": 30,
-        "2026": 471
+        "2026": 485
       },
-      "trend_slope_per_year": 89.2,
+      "trend_slope_per_year": 92.2,
       "n_years": 5,
       "confidence_tier": "B"
     },
     "site/civil": {
       "coverage": "ok",
-      "n_permits": 9248,
-      "median_days": 30.0,
+      "n_permits": 9201,
+      "median_days": 30,
       "p25_days": 14,
       "p75_days": 65,
       "annual_volume": {
-        "2022": 349,
+        "2022": 274,
         "2023": 2280,
         "2024": 2413,
         "2025": 2453,
-        "2026": 1753
+        "2026": 1781
       },
-      "trend_slope_per_year": 298.1,
+      "trend_slope_per_year": 318.7,
       "n_years": 5,
       "confidence_tier": "B"
     }
